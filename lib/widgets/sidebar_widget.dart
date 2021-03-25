@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userspost/pages/register_user_page.dart';
 
 import 'buttons_drawer_widget.dart';
 
@@ -33,6 +34,10 @@ class SideBarWidget extends StatelessWidget {
                 ),
                 labelButton: "Posts",
                 onPressed: () {
+                  Navigator.of(context).push(
+                      new MaterialPageRoute(builder: (BuildContext context) {
+                    return RegisterUserPage();
+                  }));
                   print("perras");
                 },
               ),

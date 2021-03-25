@@ -14,7 +14,10 @@ class _RegisterUserPage extends State<RegisterUserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final _formKey = GlobalKey<FormState>();
-  FocusNode focusNode;
+
+  final name = TextEditingController();
+  final email = TextEditingController();
+  final gender = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,62 @@ class _RegisterUserPage extends State<RegisterUserPage> {
             centerTitle: true,
           ),
           body: SafeArea(
-              // child: Container(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: 'Nombre',
+                      ),
+                      initialValue: '',
+                      // controller: name,
+                      validator: (value) {
+                        if (value.length < 1) {
+                          return 'El nombre no debe estar vacio.';
+                        }
+                        return null;
+                      }),
+                  TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: 'Genero',
+                      ),
+                      initialValue: '',
+                      // controller: email,
+                      validator: (value) {
+                        if (value.length < 1) {
+                          return 'El genero no debe estar vacio.';
+                        }
+                        return null;
+                      }),
+                  TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: 'Correo',
+                      ),
+                      initialValue: '',
+                      // controller: gender,
+                      validator: (value) {
+                        if (value.length < 1) {
+                          return 'El correo no debe estar vacio.';
+                        }
+                        return null;
+                      }),
+                  RaisedButton(
+                    child: Text('Registrar'),
+                    onPressed: () {
+                      print(_formKey);
+                      // if (_formKey.currentState.validate()) {
+                      //   userFormBloc.add(user?.id == null
+                      //       ? CreateUser(user: user)
+                      //       : UpdateUser(user: user));
+                      // }
+                    },
+                  )
+                ],
+              ),
 
               // width: double.infinity,
               // child: Column(
@@ -61,9 +119,8 @@ class _RegisterUserPage extends State<RegisterUserPage> {
               //     ),
               //   ],
               // ),
-
-              // ),
-              ),
+            ),
+          ),
         ),
       ),
     );

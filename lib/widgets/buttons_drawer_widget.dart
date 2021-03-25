@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class ButtonDrawer extends StatelessWidget {
   final Icon iconButton;
+  final Color buttonColor, labelColor;
   final String labelButton;
   final VoidCallback onPressed;
 
@@ -11,12 +12,15 @@ class ButtonDrawer extends StatelessWidget {
     @required this.iconButton,
     @required this.labelButton,
     @required this.onPressed,
+    @required this.buttonColor,
+    @required this.labelColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: CupertinoButton(
+        color: this.buttonColor,
         child: SafeArea(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +33,7 @@ class ButtonDrawer extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: this.labelColor,
                   ),
                 ),
               )

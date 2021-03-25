@@ -1,0 +1,67 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class SelectWidget extends StatefulWidget {
+  SelectWidget({Key key}) : super(key: key);
+
+  @override
+  _SelectWidgetState createState() => _SelectWidgetState();
+}
+
+class _SelectWidgetState extends State<SelectWidget> {
+  List<String> _locations = ['Female', 'Male'];
+  String _selectedLocation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Container(
+        alignment: Alignment.topLeft,
+        width: MediaQuery.of(context).size.width * 0.8,
+        height: 70,
+        padding: EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 5,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Colors.grey),
+          shape: BoxShape.rectangle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26.withOpacity(0.3),
+              blurRadius: 10,
+              offset: Offset(5, 5),
+            )
+          ],
+        ),
+        // dropdown below..
+        child: DropdownButton(
+          hint: Text(
+            'Genero',
+            style: TextStyle(fontSize: 25),
+          ),
+          icon: Icon(Icons.arrow_drop_down),
+          iconSize: 42,
+          underline: SizedBox(),
+          value: _selectedLocation,
+          onChanged: (newValue) {
+            setState(() {
+              _selectedLocation = newValue;
+            });
+          },
+          items: _locations.map((location) {
+            return DropdownMenuItem(
+              child: new Text(
+                location,
+                style: TextStyle(fontSize: 25),
+              ),
+              value: location,
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+}

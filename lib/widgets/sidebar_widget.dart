@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:userspost/pages/register_user_page.dart';
-
 import 'buttons_drawer_widget.dart';
 
 class SideBarWidget extends StatelessWidget {
@@ -18,13 +16,28 @@ class SideBarWidget extends StatelessWidget {
             children: <Widget>[
               ButtonDrawer(
                 iconButton: Icon(
+                  Icons.home,
+                  color: Colors.black,
+                ),
+                labelButton: "Home",
+                onPressed: () {
+                  Navigator.pushNamed(context, 'home');
+                },
+                buttonColor: null,
+                labelColor: Colors.black,
+              ),
+              SizedBox(height: 10),
+              ButtonDrawer(
+                iconButton: Icon(
                   Icons.supervised_user_circle_sharp,
                   color: Colors.black,
                 ),
-                labelButton: "Usuarios",
+                labelButton: "Users",
                 onPressed: () {
-                  print("perras");
+                  Navigator.pushNamed(context, 'registeruser');
                 },
+                buttonColor: null,
+                labelColor: Colors.black,
               ),
               SizedBox(height: 10),
               ButtonDrawer(
@@ -33,13 +46,9 @@ class SideBarWidget extends StatelessWidget {
                   color: Colors.black,
                 ),
                 labelButton: "Posts",
-                onPressed: () {
-                  Navigator.of(context).push(
-                      new MaterialPageRoute(builder: (BuildContext context) {
-                    return RegisterUserPage();
-                  }));
-                  print("perras");
-                },
+                onPressed: () {},
+                buttonColor: null,
+                labelColor: Colors.black,
               ),
             ],
           ),

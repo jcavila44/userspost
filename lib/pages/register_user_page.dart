@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:userspost/blocs/register_user_bloc.dart';
-import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
+import 'package:userspost/widgets/input_registerformuser_widget.dart';
+import 'package:userspost/widgets/selectinput_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
 class RegisterUserPage extends StatefulWidget {
-  //static final routeName = 'registerUser';
+  static final routeName = 'registeruser';
   // RegisterUserPage({Key key}) : super(key: key);
   @override
   _RegisterUserPage createState() => _RegisterUserPage();
@@ -14,124 +14,94 @@ class RegisterUserPage extends StatefulWidget {
 
 class _RegisterUserPage extends State<RegisterUserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  RegisterUserBloc _block = RegisterUserBloc();
-
   final _formKey = GlobalKey<FormState>();
-
-  final name = TextEditingController();
-  final email = TextEditingController();
-  final gender = TextEditingController();
-
-  final user = User;
+  final nick1 = TextEditingController();
+  final nick2 = TextEditingController();
+  FocusNode focusNode;
 
   @override
   void dispose() {
-    // _block.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        child: Scaffold(
-          key: _scaffoldKey,
-          // El Drawer es el menú izquierdo
-          drawer: SideBarWidget(),
-          appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          child: Scaffold(
+            key: _scaffoldKey,
+            // El Drawer es el menú izquierdo
+            drawer: SideBarWidget(),
+            appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+                onPressed: () => _scaffoldKey.currentState.openDrawer(),
               ),
-              onPressed: () => _scaffoldKey.currentState.openDrawer(),
+              title: Text("Regitro de usuarios"),
+              centerTitle: true,
             ),
-            title: Text("Regitro de usuarios"),
-            centerTitle: true,
-          ),
-          body: SafeArea(
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      // controller: lastNameController,
-                      decoration: InputDecoration(
-                        labelText: 'Nombre',
+            body: SafeArea(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          InputRegister(
+                            placeholder: 'Nombre',
+                            placeholderSize: 25,
+                            controllerFunct: nick1,
+                          ),
+                          SizedBox(height: 20),
+                          InputRegister(
+                            placeholder: 'Email',
+                            placeholderSize: 25,
+                            controllerFunct: nick2,
+                          ),
+                          SizedBox(height: 20),
+                          SelectWidget(),
+                          SizedBox(height: 20),
+                          ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                ButtonDrawer(
+                                  iconButton: Icon(Icons.arrow_back),
+                                  labelButton: "Atras",
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, 'home');
+                                  },
+                                  buttonColor: Colors.grey,
+                                  labelColor: Colors.white,
+                                ),
+                                ButtonDrawer(
+                                  iconButton: Icon(Icons.check),
+                                  labelButton: "Guardar",
+                                  onPressed: () {},
+                                  buttonColor: Colors.blue,
+                                  labelColor: Colors.white,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      // initialValue: null,
-                      controller: name,
-                      validator: (value) {
-                        if (value.length < 1) {
-                          return 'El nombre no debe estar vacio.';
-                        }
-                        return null;
-                      }),
-                  TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Genero',
-                      ),
-                      // initialValue: '',
-                      controller: email,
-                      validator: (value) {
-                        if (value.length < 1) {
-                          return 'El genero no debe estar vacio.';
-                        }
-                        return null;
-                      }),
-                  TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Correo',
-                      ),
-                      // initialValue: '',
-                      controller: gender,
-                      validator: (value) {
-                        if (value.length < 1) {
-                          return 'El correo no debe estar vacio.';
-                        }
-                        return null;
-                      }),
-                  RaisedButton(
-                    child: Text('Registrar'),
-                    onPressed: () {
-                      _block.sendEvent.add(RegisterEvent());
-                      // if (_formKey.currentState.validate()) {
-                      //   userFormBloc.add(user?.id == null
-                      //       ? CreateUser(user: user)
-                      //       : UpdateUser(user: user));
-                      // }
-                    },
-                  )
-                ],
+                    ),
+                  ],
+                ),
               ),
-
-              // width: double.infinity,
-              // child: Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     Container(
-              //       child: Text(
-              //         "Bienvenido al Home",
-              //         style: TextStyle(
-              //           fontSize: 30,
-              //           fontWeight: FontWeight.w500,
-              //         ),
-              //       ),
-              //     ),
-              //     SizedBox(height: 20),
-              //     ClipRRect(
-              //       borderRadius: BorderRadius.circular(20),
-              //       child: Image.asset(
-              //         'assets/icons/ninodance.gif',
-              //         width: 300,
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ),
           ),
         ),

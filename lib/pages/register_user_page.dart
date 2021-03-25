@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userspost/blocs/register_user_bloc.dart';
+import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
@@ -13,11 +15,21 @@ class RegisterUserPage extends StatefulWidget {
 class _RegisterUserPage extends State<RegisterUserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  RegisterUserBloc _block = RegisterUserBloc();
+
   final _formKey = GlobalKey<FormState>();
 
   final name = TextEditingController();
   final email = TextEditingController();
   final gender = TextEditingController();
+
+  final user = User;
+
+  @override
+  void dispose() {
+    // _block.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +57,12 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                 children: <Widget>[
                   TextFormField(
                       keyboardType: TextInputType.emailAddress,
+                      // controller: lastNameController,
                       decoration: InputDecoration(
                         labelText: 'Nombre',
                       ),
-                      initialValue: '',
-                      // controller: name,
+                      // initialValue: null,
+                      controller: name,
                       validator: (value) {
                         if (value.length < 1) {
                           return 'El nombre no debe estar vacio.';
@@ -61,8 +74,8 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                       decoration: InputDecoration(
                         labelText: 'Genero',
                       ),
-                      initialValue: '',
-                      // controller: email,
+                      // initialValue: '',
+                      controller: email,
                       validator: (value) {
                         if (value.length < 1) {
                           return 'El genero no debe estar vacio.';
@@ -74,8 +87,8 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                       decoration: InputDecoration(
                         labelText: 'Correo',
                       ),
-                      initialValue: '',
-                      // controller: gender,
+                      // initialValue: '',
+                      controller: gender,
                       validator: (value) {
                         if (value.length < 1) {
                           return 'El correo no debe estar vacio.';
@@ -85,7 +98,7 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                   RaisedButton(
                     child: Text('Registrar'),
                     onPressed: () {
-                      print(_formKey);
+                      _block.sendEvent.add(RegisterEvent());
                       // if (_formKey.currentState.validate()) {
                       //   userFormBloc.add(user?.id == null
                       //       ? CreateUser(user: user)

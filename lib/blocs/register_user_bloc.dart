@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:userspost/models/user/user_model.dart';
 
 class RegisterUserBase {}
@@ -7,8 +6,8 @@ class RegisterUserBase {}
 class RegisterEvent extends RegisterUserBase {}
 
 class RegisterUserBloc {
-  StreamController<RegisterUserBase> _input = StreamController();
-  StreamController<User> _output = StreamController();
+  final StreamController<RegisterUserBase> _input = StreamController();
+  final StreamController<User> _output = StreamController();
 
   Stream<User> get counterStream => _output.stream;
   StreamSink<RegisterUserBase> get sendEvent => _input.sink;

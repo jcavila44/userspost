@@ -10,11 +10,16 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  flutter_bloc: ^4.0.0
+  fluttertoast: ^7.1.6
+  http:
   # flutter_svg: ^0.20.0-nullsafety.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  pedantic: ^1.11.0
+  test:
 
 flutter:
   uses-material-design: true

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void dispose() {
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: () => _scaffoldKey.currentState.openDrawer(),
             ),
-            title: Text("Home"),
+            title: Text('Home'),
             centerTitle: true,
           ),
           body: SafeArea(
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "Bienvenido al Home",
+                      'Bienvenido al Home',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w500,

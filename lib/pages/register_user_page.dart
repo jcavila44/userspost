@@ -13,7 +13,7 @@ class RegisterUserPage extends StatefulWidget {
 }
 
 class _RegisterUserPage extends State<RegisterUserPage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final nick1 = TextEditingController();
   final nick2 = TextEditingController();
@@ -44,7 +44,7 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                 ),
                 onPressed: () => _scaffoldKey.currentState.openDrawer(),
               ),
-              title: Text("Registro de usuarios"),
+              title: Text('Registro de usuarios'),
               centerTitle: true,
             ),
             body: SafeArea(
@@ -79,7 +79,7 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                               children: <Widget>[
                                 ButtonDrawer(
                                   iconButton: Icon(Icons.arrow_back),
-                                  labelButton: "Atras",
+                                  labelButton: 'Atras',
                                   onPressed: () {
                                     Navigator.pushNamed(context, 'home');
                                   },
@@ -88,7 +88,7 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                 ),
                                 ButtonDrawer(
                                   iconButton: Icon(Icons.check),
-                                  labelButton: "Guardar",
+                                  labelButton: 'Guardar',
                                   onPressed: () {},
                                   buttonColor: Colors.blue,
                                   labelColor: Colors.white,

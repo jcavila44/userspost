@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:userspost/ui/register_user_page.dart';
+import 'package:userspost/pages/register_user_page.dart';
 import 'package:userspost/widgets/splash_widget.dart';
 
-import 'ui/home_page.dart';
+import 'pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         SplashWidget.routeName: (BuildContext context) => SplashWidget(),
         RegisterUserPage.routeName: (BuildContext context) =>
             RegisterUserPage(),
+        ListUsersPage.routeName: (BuildContext context) => ListUsersPage(),
       },
       debugShowCheckedModeBanner: false, //Quita el letrero de debugs
     );

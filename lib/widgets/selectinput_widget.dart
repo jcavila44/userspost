@@ -9,7 +9,7 @@ class SelectWidget extends StatefulWidget {
 }
 
 class _SelectWidgetState extends State<SelectWidget> {
-  List<String> _locations = ['Female', 'Male'];
+  final List<String> _locations = ['Female', 'Male'];
   String _selectedLocation;
 
   @override
@@ -53,11 +53,11 @@ class _SelectWidgetState extends State<SelectWidget> {
           },
           items: _locations.map((location) {
             return DropdownMenuItem(
-              child: new Text(
+              value: location,
+              child: Text(
                 location,
                 style: TextStyle(fontSize: 25),
               ),
-              value: location,
             );
           }).toList(),
         ),

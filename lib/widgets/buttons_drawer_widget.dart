@@ -20,28 +20,28 @@ class ButtonDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: CupertinoButton(
-        color: this.buttonColor,
+        color: buttonColor,
+        padding: EdgeInsets.all(4),
+        onPressed: onPressed,
         child: SafeArea(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              this.iconButton,
+              iconButton,
               Container(
                 padding: EdgeInsets.all(13),
                 child: Text(
-                  this.labelButton,
+                  labelButton,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: this.labelColor,
+                    color: labelColor,
                   ),
                 ),
               )
             ],
           ),
         ),
-        padding: EdgeInsets.all(4),
-        onPressed: this.onPressed,
       ),
     );
   }

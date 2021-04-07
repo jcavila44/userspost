@@ -25,14 +25,14 @@ class Comments {
 
   Map<String, dynamic> toJson() {
     var map = {
-      'id': this.id ?? '',
-      'post': this.post ?? '',
-      'name': this.name ?? '',
-      'email': this.email ?? '',
-      'body': this.body ?? '',
+      'id': id ?? '',
+      'post': post ?? '',
+      'name': name ?? '',
+      'email': email ?? '',
+      'body': body ?? '',
     };
 
-    if (map['id'] != null) map['id'] = this.id ?? '';
+    if (map['id'] != null) map['id'] = id ?? '';
 
     return map;
   }

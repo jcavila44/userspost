@@ -19,7 +19,7 @@ class SideBarWidget extends StatelessWidget {
                   Icons.home,
                   color: Colors.black,
                 ),
-                labelButton: "Home",
+                labelButton: 'Home',
                 onPressed: () {
                   Navigator.pushNamed(context, 'home');
                 },
@@ -32,9 +32,9 @@ class SideBarWidget extends StatelessWidget {
                   Icons.supervised_user_circle_sharp,
                   color: Colors.black,
                 ),
-                labelButton: "Users",
+                labelButton: 'Users',
                 onPressed: () {
-                  Navigator.pushNamed(context, 'registeruser');
+                  Navigator.pushNamed(context, 'listusers');
                 },
                 buttonColor: null,
                 labelColor: Colors.black,
@@ -45,7 +45,7 @@ class SideBarWidget extends StatelessWidget {
                   Icons.list,
                   color: Colors.black,
                 ),
-                labelButton: "Posts",
+                labelButton: 'Posts',
                 onPressed: () {},
                 buttonColor: null,
                 labelColor: Colors.black,

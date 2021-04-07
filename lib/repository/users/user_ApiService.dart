@@ -8,11 +8,15 @@ import 'package:userspost/resource/constants.dart';
 
 class User_ApiService {
   User_ApiService();
+  User _user;
 
   Future<ApiResponse> getAllUsers() async {
     List<User> listUsers = [];
+    var queryParameters = {'page': '2'};
+
     var apiResponse = ApiResponse(statusResponse: 0);
-    var uri = Uri.http(Constants.urlAuthority, Constants.urlgetUsers);
+    var uri = Uri.http(
+        Constants.urlAuthority, Constants.urlgetUsers, queryParameters);
     var res = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
       HttpHeaders.authorizationHeader: Constants.authorizationheader
@@ -36,21 +40,29 @@ class User_ApiService {
     return apiResponse;
   }
 
-  Future<User> getUserById(User user) async {
-    var uri = Uri.http(Constants.urlAuthority, Constants.urlgetUsers + '/8');
+  Future<ApiResponse> getUserById(int id) async {
+    var apiResponse = ApiResponse(statusResponse: 0);
+
+    //print('id de usuario ' + user.id.toString());
+    var uri = Uri.http(
+        Constants.urlAuthority, Constants.urlgetUsers + '/' + id.toString());
+
     var res = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
       HttpHeaders.authorizationHeader: Constants.authorizationheader
     });
 
     var resBody = json.decode(res.body);
+    apiResponse.statusResponse = res.statusCode;
 
-    if (resBody.statusCode == 200) {
-      return User.fromJson(resBody);
+    if (apiResponse.statusResponse == 200) {
+      _user = User.fromJson(resBody['data']);
+      apiResponse.object = _user;
     } else {
-      print('no hay datos');
       throw Exception('Fallo');
     }
+
+    return apiResponse;
   }
 
   Future<ApiResponse> createUser(User user) async {

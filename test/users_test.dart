@@ -24,5 +24,20 @@ void main() {
         print(listUsers[i].name);
       }
     });
+
+    test('test getUserById', () async {
+      ApiResponse _api;
+      User user;
+
+      //print('prueba test' + user.id.toString());
+
+      final _rep = General_user_repository();
+      _api = await _rep.getUserById(187);
+
+      user = _api.object;
+      print('id ' + user.id.toString());
+      print('nombre ' + user.name);
+      expect(_api.statusResponse, 200);
+    });
   });
 }

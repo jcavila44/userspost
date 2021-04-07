@@ -11,9 +11,9 @@ class User_ApiService {
   User _user;
 
 //Consultar todos los usuarios
-  Future<ApiResponse> getAllUsers() async {
-    List<User> listUsers = [];
-    var queryParameters = {'page': '2'};
+  Future<ApiResponse> getAllUsers(int page) async {
+    var listUsers = <User>[];
+    var queryParameters = {'page': page.toString()};
 
     var apiResponse = ApiResponse(statusResponse: 0);
     var uri = Uri.http(
@@ -72,6 +72,33 @@ class User_ApiService {
     var uri = Uri.https(Constants.urlAuthority, Constants.urlInsertUser);
 
     var res = await http.post(uri,
+        headers: {
+          HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
+          HttpHeaders.authorizationHeader: Constants.authorizationheader
+        },
+        body: body);
+
+    var resBody = json.decode(res.body);
+    apiResponse.statusResponse = res.statusCode;
+
+    if (apiResponse.statusResponse == 200) {
+      _user = User.fromJson(resBody['data']);
+      apiResponse.object = _user;
+    } else {
+      throw Exception('Fallo');
+    }
+
+    return apiResponse;
+  }
+
+  //Modificar un usuario
+  Future<ApiResponse> updateUser(User user) async {
+    var apiResponse = ApiResponse(statusResponse: 0);
+    var body = json.encode(user.toJson());
+    var uri = Uri.https(Constants.urlAuthority,
+        Constants.urlInsertUser + '/' + user.id.toString());
+
+    var res = await http.put(uri,
         headers: {
           HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
           HttpHeaders.authorizationHeader: Constants.authorizationheader

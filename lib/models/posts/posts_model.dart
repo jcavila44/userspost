@@ -17,13 +17,13 @@ class Post {
 
   Map<String, dynamic> toJson() {
     var map = {
-      'id': this.id ?? '',
-      'title': this.title ?? '',
-      'body': this.body ?? '',
-      'user': this.user ?? '',
+      'id': id ?? '',
+      'title': title ?? '',
+      'body': body ?? '',
+      'user': user ?? '',
     };
 
-    if (map['id'] != null) map['id'] = this.id ?? '';
+    if (map['id'] != null) map['id'] = id ?? '';
 
     return map;
   }

@@ -7,15 +7,17 @@ class InputRegister extends StatelessWidget {
   final double placeholderSize;
   final controllerFunct;
 
-  const InputRegister(
-      {@required this.placeholder,
-      @required this.placeholderSize,
-      @required this.controllerFunct});
+  const InputRegister({
+    @required this.placeholder,
+    @required this.placeholderSize,
+    @required this.controllerFunct,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.9,
+      // height: 46,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         boxShadow: [

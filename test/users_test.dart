@@ -29,8 +29,6 @@ void main() {
       ApiResponse _api;
       User user;
 
-      //print('prueba test' + user.id.toString());
-
       final _rep = General_user_repository();
       _api = await _rep.getUserById(187);
 
@@ -38,6 +36,23 @@ void main() {
       print('id ' + user.id.toString());
       print('nombre ' + user.name);
       expect(_api.statusResponse, 200);
+    });
+
+    test('test createUser', () async {
+      ApiResponse _api;
+
+      var user = User(
+          name: 'Alejandro Magno',
+          gender: 'Male',
+          email: 'magno3@xyz.com',
+          status: 'Active');
+
+      final _rep = General_user_repository();
+      _api = await _rep.createUser(user);
+
+      user = _api.object;
+      print(_api.statusResponse);
+      expect(_api.statusResponse, 201);
     });
   });
 }

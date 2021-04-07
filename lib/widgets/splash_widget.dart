@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:userspost/pages/home_page.dart';
+import 'package:userspost/ui/home_page.dart';
 
 class SplashWidget extends StatefulWidget {
   static final routeName = 'splash';

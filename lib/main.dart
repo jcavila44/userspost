@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:userspost/pages/register_user_page.dart';
+import 'package:userspost/ui/register_user_page.dart';
 import 'package:userspost/widgets/splash_widget.dart';
 
-import 'pages/home_page.dart';
+import 'ui/home_page.dart';
 
 void main() {
   runApp(MyApp());

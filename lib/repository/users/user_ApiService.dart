@@ -4,12 +4,13 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/models/utils/apiresponse_model.dart';
-import 'package:userspost/resource/constants.dart';
+import 'package:userspost/resources/constants.dart';
 
 class User_ApiService {
   User_ApiService();
   User _user;
 
+//Consultar todos los usuarios
   Future<ApiResponse> getAllUsers() async {
     List<User> listUsers = [];
     var queryParameters = {'page': '2'};
@@ -40,10 +41,9 @@ class User_ApiService {
     return apiResponse;
   }
 
+//Consultar un usuario especifico
   Future<ApiResponse> getUserById(int id) async {
     var apiResponse = ApiResponse(statusResponse: 0);
-
-    //print('id de usuario ' + user.id.toString());
     var uri = Uri.http(
         Constants.urlAuthority, Constants.urlgetUsers + '/' + id.toString());
 
@@ -65,7 +65,14 @@ class User_ApiService {
     return apiResponse;
   }
 
+//Crear un usuario
   Future<ApiResponse> createUser(User user) async {
-    //return _user;
+    var apiResponse = ApiResponse(statusResponse: 0);
+    var uri = Uri.http(Constants.urlAuthority, Constants.urlInsertUser);
+
+    var res = await http.get(uri, headers: {
+      HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
+      HttpHeaders.authorizationHeader: Constants.authorizationheader
+    });
   }
 }

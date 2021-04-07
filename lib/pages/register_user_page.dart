@@ -44,7 +44,7 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                 ),
                 onPressed: () => _scaffoldKey.currentState.openDrawer(),
               ),
-              title: Text("Regitro de usuarios"),
+              title: Text("Registro de usuarios"),
               centerTitle: true,
             ),
             body: SafeArea(

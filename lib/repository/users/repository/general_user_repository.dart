@@ -5,7 +5,7 @@ import 'package:userspost/models/utils/apiresponse_model.dart';
 class General_user_repository {
   final userApi = User_ApiService();
 
-  Future<ApiResponse> getUserById(User user) => userApi.getUserById(user);
+  Future<User> getUserById(User user) => userApi.getUserById(user);
   Future<ApiResponse> getAllUsers() => userApi.getAllUsers();
   Future<ApiResponse> createUser(User user) => userApi.createUser(user);
 }

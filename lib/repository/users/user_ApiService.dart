@@ -68,11 +68,26 @@ class User_ApiService {
 //Crear un usuario
   Future<ApiResponse> createUser(User user) async {
     var apiResponse = ApiResponse(statusResponse: 0);
-    var uri = Uri.http(Constants.urlAuthority, Constants.urlInsertUser);
+    var body = json.encode(user.toJson());
+    var uri = Uri.https(Constants.urlAuthority, Constants.urlInsertUser);
 
-    var res = await http.get(uri, headers: {
-      HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
-      HttpHeaders.authorizationHeader: Constants.authorizationheader
-    });
+    var res = await http.post(uri,
+        headers: {
+          HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
+          HttpHeaders.authorizationHeader: Constants.authorizationheader
+        },
+        body: body);
+
+    var resBody = json.decode(res.body);
+    apiResponse.statusResponse = res.statusCode;
+
+    if (apiResponse.statusResponse == 200) {
+      _user = User.fromJson(resBody['data']);
+      apiResponse.object = _user;
+    } else {
+      throw Exception('Fallo');
+    }
+
+    return apiResponse;
   }
 }

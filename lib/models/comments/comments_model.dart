@@ -1,4 +1,4 @@
-import 'package:userspost/models/posts/posts_model.dart';
+import 'package:userspost/models/post/post_model.dart';
 
 class Comments {
   int id;
@@ -15,25 +15,21 @@ class Comments {
     this.body,
   });
 
-  factory Comments.fromJson(Map<String, dynamic> json) => Comments(
-        id: json['id'] ?? 0,
-        post: json['post'] ?? '',
-        name: json['name'] ?? '',
-        email: json['email'] ?? '',
-        body: json['body'] ?? '',
-      );
-
-  Map<String, dynamic> toJson() {
-    var map = {
-      'id': id ?? '',
-      'post': post ?? '',
-      'name': name ?? '',
-      'email': email ?? '',
-      'body': body ?? '',
-    };
-
-    if (map['id'] != null) map['id'] = id ?? '';
-
-    return map;
+  factory Comments.fromJson(Map<String, dynamic> parsedJson) {
+    return Comments(
+      id: parsedJson['id'],
+      post: parsedJson['post'],
+      name: parsedJson['name'],
+      email: parsedJson['email'],
+      body: parsedJson['body'],
+    );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id ?? '',
+        'post': post ?? '',
+        'name': name ?? '',
+        'email': email ?? '',
+        'body': body ?? '',
+      };
 }

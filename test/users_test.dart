@@ -44,7 +44,7 @@ void main() {
       var user = User(
           name: 'Alejandro Magno',
           gender: 'Male',
-          email: 'magno3@xyz.com',
+          email: 'magno7@xyz.com',
           status: 'Active');
 
       final _rep = General_user_repository();
@@ -52,7 +52,7 @@ void main() {
 
       user = _api.object;
       print(_api.statusResponse);
-      expect(_api.statusResponse, 201);
+      expect(_api.statusResponse, 200);
     });
   });
 }

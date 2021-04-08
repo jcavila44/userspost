@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userspost/blocs/register_user_bloc.dart';
 import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
@@ -21,6 +22,7 @@ class _RegisterUserPage extends State<RegisterUserPage> {
   var data = 'hola onchange';
 
   final User user = User();
+  final RegisterUserBloc _block = RegisterUserBloc();
 
   FocusNode focusNode;
 
@@ -28,12 +30,6 @@ class _RegisterUserPage extends State<RegisterUserPage> {
   void dispose() {
     super.dispose();
   }
-
-  //  onChanged: (value) {
-  //                           setState(() {
-  //                             user.name = value;
-  //                           });
-  //                         },
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +105,8 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                   iconButton: Icon(Icons.check),
                                   labelButton: 'Guardar',
                                   onPressed: () {
-                                    print('Nombre 2 :' + user.name);
+                                    _block.user = user;
+                                    // print('Nombre 2 :' + user.name);
                                   },
                                   buttonColor: Colors.blue,
                                   labelColor: Colors.white,

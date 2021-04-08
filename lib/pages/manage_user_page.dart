@@ -69,19 +69,19 @@ class _GestionUserPageState extends State<GestionUserPage> {
                           SizedBox(height: 20),
                           SelectWidget(),
                           SizedBox(height: 20),
-                          SelectWidget(),
-                          SizedBox(height: 20),
+                          // SelectWidget(),
+                          // SizedBox(height: 20),
                           ListTile(
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 ButtonDrawer(
-                                  iconButton: Icon(Icons.arrow_back),
-                                  labelButton: 'Atras',
+                                  iconButton: Icon(Icons.delete),
+                                  labelButton: 'Eliminar',
                                   onPressed: () {
-                                    Navigator.pushNamed(context, 'home');
+                                    // Navigator.pushNamed(context, 'home');
                                   },
-                                  buttonColor: Colors.grey,
+                                  buttonColor: Colors.red,
                                   labelColor: Colors.white,
                                 ),
                                 ButtonDrawer(

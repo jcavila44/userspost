@@ -16,7 +16,7 @@ class User_ApiService {
     var queryParameters = {'page': page.toString()};
 
     var apiResponse = ApiResponse(statusResponse: 0);
-    var uri = Uri.http(
+    var uri = Uri.https(
         Constants.urlAuthority, Constants.urlgetUsers, queryParameters);
     var res = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,

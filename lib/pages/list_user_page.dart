@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userspost/blocs/user_list_bloc.dart';
 import 'package:userspost/models/user/paises.dart';
+import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
@@ -19,24 +21,29 @@ class _ListUsersPageState extends State<ListUsersPage> {
   bool sortAscending;
   List<Pais> paises;
 
+  List<User> users;
+  final UserListBloc _block = UserListBloc();
+
   @override
   void initState() {
     super.initState();
     sortAscending = false;
+    _block.sendEvent.add(GetListEvent());
     paises = Pais.getPaises();
   }
 
   @override
   void dispose() {
+    _block.dispose();
     super.dispose();
   }
 
   void ordenarColumna(int columnIndex, bool ordenar) {
     if (columnIndex == 0) {
       if (ordenar) {
-        paises.sort((a, b) => a.name.compareTo(b.name));
+        _block.listUsers.sort((a, b) => a.name.compareTo(b.name));
       } else {
-        paises.sort((a, b) => b.name.compareTo(a.name));
+        _block.listUsers.sort((a, b) => b.name.compareTo(a.name));
       }
     }
   }
@@ -71,93 +78,103 @@ class _ListUsersPageState extends State<ListUsersPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(height: 20),
-                          InputRegister(
-                            placeholder: 'Search...',
-                            placeholderSize: 25,
-                            controllerFunct: searchInputController,
-                          ),
-                          SizedBox(height: 20),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                dividerThickness: 0,
-                                dataRowHeight: 50,
-                                headingRowHeight: 50,
-                                sortColumnIndex:
-                                    0, // icono de la flecha en el titulo
-                                sortAscending:
-                                    sortAscending, //Orientacion de la flecha
-                                columns: [
-                                  DataColumn(
-                                    label: Text('Nombre'),
-                                    numeric: false,
-                                    onSort: (columnIndex, ascending) {
-                                      setState(
-                                        () {
-                                          sortAscending = !sortAscending;
-                                        },
-                                      );
-                                      ordenarColumna(columnIndex, ascending);
-                                    },
+                    StreamBuilder<List<User>>(
+                        stream: _block.counterStream,
+                        initialData: null,
+                        builder: (contex, snapshot) {
+                          if (snapshot.data.length > 0) {
+                            return Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(height: 20),
+                                  InputRegister(
+                                    placeholder: 'Search...',
+                                    placeholderSize: 25,
+                                    controllerFunct: searchInputController,
                                   ),
-                                  DataColumn(
-                                    label: Text('Email'),
-                                    numeric: false,
-                                    tooltip: 'Email',
-                                  ),
-                                  DataColumn(
-                                    label: Text('Genero'),
-                                    numeric: false,
-                                    tooltip: 'Genero',
-                                  ),
-                                  DataColumn(
-                                    label: Text('Estado'),
-                                    numeric: false,
-                                    tooltip: 'Estado',
-                                  ),
-                                ],
-                                rows: paises
-                                    .map(
-                                      (pais) => DataRow(
-                                        cells: [
-                                          DataCell(
-                                            Text(
-                                              pais.name,
-                                            ),
+                                  SizedBox(height: 20),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: DataTable(
+                                        dividerThickness: 0,
+                                        dataRowHeight: 50,
+                                        headingRowHeight: 50,
+                                        sortColumnIndex:
+                                            0, // icono de la flecha en el titulo
+                                        sortAscending:
+                                            sortAscending, //Orientacion de la flecha
+                                        columns: [
+                                          DataColumn(
+                                            label: Text('Nombre'),
+                                            numeric: false,
+                                            onSort: (columnIndex, ascending) {
+                                              print("hoo");
+                                              setState(
+                                                () {
+                                                  sortAscending =
+                                                      !sortAscending;
+                                                },
+                                              );
+                                              ordenarColumna(
+                                                  columnIndex, ascending);
+                                            },
                                           ),
-                                          DataCell(
-                                            Text(
-                                              pais.gender,
-                                            ),
+                                          DataColumn(
+                                            label: Text('Email'),
+                                            numeric: false,
+                                            tooltip: 'Email',
                                           ),
-                                          DataCell(
-                                            Text(
-                                              pais.status,
-                                            ),
+                                          DataColumn(
+                                            label: Text('Genero'),
+                                            numeric: false,
+                                            tooltip: 'Genero',
                                           ),
-                                          DataCell(
-                                            Text(
-                                              pais.email,
-                                            ),
+                                          DataColumn(
+                                            label: Text('Estado'),
+                                            numeric: false,
+                                            tooltip: 'Estado',
                                           ),
                                         ],
+                                        rows: snapshot.data
+                                            .map(
+                                              (pais) => DataRow(
+                                                cells: [
+                                                  DataCell(
+                                                    Text(
+                                                      pais.name,
+                                                    ),
+                                                  ),
+                                                  DataCell(
+                                                    Text(
+                                                      pais.gender,
+                                                    ),
+                                                  ),
+                                                  DataCell(
+                                                    Text(
+                                                      pais.status,
+                                                    ),
+                                                  ),
+                                                  DataCell(
+                                                    Text(
+                                                      pais.email,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                            .toList(),
                                       ),
-                                    )
-                                    .toList(),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                            );
+                          }
+                        })
                   ],
                 ),
               ),

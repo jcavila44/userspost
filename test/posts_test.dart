@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:userspost/repository/posts/repository/general_post_repository.dart';
 import 'package:userspost/models/utils/apiresponse_model.dart';
-import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/models/post/post_model.dart';
 
 void main() {

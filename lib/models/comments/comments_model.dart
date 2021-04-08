@@ -4,6 +4,8 @@ class Comments {
   String name;
   String email;
   String body;
+  String created_at;
+  String updated_at;
 
   Comments({
     this.id,
@@ -11,6 +13,8 @@ class Comments {
     this.name,
     this.email,
     this.body,
+    this.created_at,
+    this.updated_at,
   });
 
   factory Comments.fromJson(Map<String, dynamic> parsedJson) {
@@ -20,6 +24,8 @@ class Comments {
       name: parsedJson['name'],
       email: parsedJson['email'],
       body: parsedJson['body'],
+      created_at: parsedJson['created_at'],
+      updated_at: parsedJson['updated_at'],
     );
   }
 
@@ -28,5 +34,7 @@ class Comments {
         'name': name ?? '',
         'email': email ?? '',
         'body': body ?? '',
+        'created_at': created_at ?? '',
+        'updated_at': updated_at ?? '',
       };
 }

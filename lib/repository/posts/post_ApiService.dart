@@ -16,7 +16,7 @@ class Post_ApiService {
     var queryParameters = {'page': page.toString()};
 
     var apiResponse = ApiResponse(statusResponse: 0);
-    var uri = Uri.http(
+    var uri = Uri.https(
         Constants.urlAuthority, Constants.urlgetPosts, queryParameters);
     var res = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
@@ -40,7 +40,7 @@ class Post_ApiService {
 //Consultar un post especifico por id del Post
   Future<ApiResponse> getPostById(int id) async {
     var apiResponse = ApiResponse(statusResponse: 0);
-    var uri = Uri.http(
+    var uri = Uri.https(
         Constants.urlAuthority, Constants.urlgetPosts + '/' + id.toString());
 
     var res = await http.get(uri, headers: {

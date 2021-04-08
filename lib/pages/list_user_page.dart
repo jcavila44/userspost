@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userspost/blocs/user_list_bloc.dart';
-import 'package:userspost/models/user/paises.dart';
 import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
@@ -20,7 +19,6 @@ class _ListUsersPageState extends State<ListUsersPage> {
   final _formKey = GlobalKey<FormState>();
   final searchInputController = TextEditingController();
   bool sortAscending;
-  List<Pais> paises;
 
   List<User> users;
   final UserListBloc _block = UserListBloc();
@@ -30,7 +28,6 @@ class _ListUsersPageState extends State<ListUsersPage> {
     super.initState();
     sortAscending = false;
     _block.sendEvent.add(GetListEvent());
-    paises = Pais.getPaises();
   }
 
   @override
@@ -96,7 +93,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       StreamBuilder<List<User>>(
-                        stream: _block.counterStream,
+                        stream: _block.listStream,
                         builder: (contex, snapshot) {
                           if (snapshot.hasData) {
                             return Form(
@@ -169,26 +166,26 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                           ],
                                           rows: snapshot.data
                                               .map(
-                                                (pais) => DataRow(
+                                                (users) => DataRow(
                                                   cells: [
                                                     DataCell(
                                                       Text(
-                                                        pais.name,
+                                                        users.name,
                                                       ),
                                                     ),
                                                     DataCell(
                                                       Text(
-                                                        pais.gender,
+                                                        users.gender,
                                                       ),
                                                     ),
                                                     DataCell(
                                                       Text(
-                                                        pais.status,
+                                                        users.status,
                                                       ),
                                                     ),
                                                     DataCell(
                                                       Text(
-                                                        pais.email,
+                                                        users.email,
                                                       ),
                                                     ),
                                                     DataCell(

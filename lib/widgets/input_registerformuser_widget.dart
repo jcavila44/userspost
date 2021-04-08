@@ -11,7 +11,7 @@ class InputRegister extends StatelessWidget {
   const InputRegister({
     @required this.placeholder,
     @required this.placeholderSize,
-    @required this.controllerFunct,
+    this.controllerFunct,
     this.onchangeInput,
   });
 

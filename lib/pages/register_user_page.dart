@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/selectinput_widget.dart';
@@ -18,12 +19,21 @@ class _RegisterUserPage extends State<RegisterUserPage> {
   final nick1 = TextEditingController();
   final nick2 = TextEditingController();
   var data = 'hola onchange';
+
+  final User user = User();
+
   FocusNode focusNode;
 
   @override
   void dispose() {
     super.dispose();
   }
+
+  //  onChanged: (value) {
+  //                           setState(() {
+  //                             user.name = value;
+  //                           });
+  //                         },
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +73,21 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                           InputRegister(
                             placeholder: 'Nombre',
                             placeholderSize: 25,
-                            controllerFunct: nick1,
                             onchangeInput: (String data) {
-                              print(data);
+                              setState(() {
+                                user.name = data;
+                              });
                             },
                           ),
                           SizedBox(height: 20),
                           InputRegister(
                             placeholder: 'Email',
                             placeholderSize: 25,
-                            controllerFunct: nick2,
+                            onchangeInput: (String data) {
+                              setState(() {
+                                user.email = data;
+                              });
+                            },
                           ),
                           SizedBox(height: 20),
                           SelectWidget(),
@@ -93,7 +108,9 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                 ButtonDrawer(
                                   iconButton: Icon(Icons.check),
                                   labelButton: 'Guardar',
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    print('Nombre 2 :' + user.name);
+                                  },
                                   buttonColor: Colors.blue,
                                   labelColor: Colors.white,
                                 ),

@@ -1,15 +1,13 @@
-import 'package:userspost/models/post/post_model.dart';
-
 class Comments {
   int id;
-  Post post;
+  int post_id;
   String name;
   String email;
   String body;
 
   Comments({
     this.id,
-    this.post,
+    this.post_id,
     this.name,
     this.email,
     this.body,
@@ -18,7 +16,7 @@ class Comments {
   factory Comments.fromJson(Map<String, dynamic> parsedJson) {
     return Comments(
       id: parsedJson['id'],
-      post: parsedJson['post'],
+      post_id: parsedJson['post_id'],
       name: parsedJson['name'],
       email: parsedJson['email'],
       body: parsedJson['body'],
@@ -26,8 +24,7 @@ class Comments {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id ?? '',
-        'post': post ?? '',
+        'post_id': post_id ?? '',
         'name': name ?? '',
         'email': email ?? '',
         'body': body ?? '',

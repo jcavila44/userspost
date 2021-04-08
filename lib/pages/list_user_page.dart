@@ -31,7 +31,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
     super.dispose();
   }
 
-  ordenarColumna(int columnIndex, bool ordenar) {
+  void ordenarColumna(int columnIndex, bool ordenar) {
     if (columnIndex == 0) {
       if (ordenar) {
         paises.sort((a, b) => a.name.compareTo(b.name));

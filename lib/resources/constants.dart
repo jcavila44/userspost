@@ -13,4 +13,9 @@ class Constants {
   static const String urlgetPosts = pathBase + '/posts';
   static const String urlgetPostsByUserId = '/posts';
   static const String urlInsertPost = pathBase + '/posts';
+
+  //API Comment
+  static const String urlgetComments = pathBase + '/comments';
+  static const String urlgetCommentsByUserId = '/comments';
+  static const String urlInsertComment = pathBase + '/comments';
 }

@@ -89,11 +89,11 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                 children: <Widget>[
                                   SizedBox(height: 20),
                                   InputRegister(
-                                    placeholder: 'Search...',
-                                    placeholderSize: 25,
-                                    controllerFunct: searchInputController,
-                                  ),
-                                  SizedBox(height: 20),
+                                      placeholder: 'Search...',
+                                      placeholderSize: 20,
+                                      controllerFunct: searchInputController,
+                                      heightZise: 50),
+                                  SizedBox(height: 10),
                                   SingleChildScrollView(
                                     scrollDirection: Axis.vertical,
                                     child: SingleChildScrollView(
@@ -111,7 +111,6 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                             label: Text('Nombre'),
                                             numeric: false,
                                             onSort: (columnIndex, ascending) {
-                                              print("hoo");
                                               setState(
                                                 () {
                                                   sortAscending =

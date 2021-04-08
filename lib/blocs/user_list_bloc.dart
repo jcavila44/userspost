@@ -26,7 +26,6 @@ class UserListBloc {
   }
 
   Future<void> _onEvent(UserListBase event) async {
-    print("holi");
     // if (event is RegisterEvent) {}
     // final _rep = General_user_repository();
 

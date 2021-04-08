@@ -80,9 +80,8 @@ class _ListUsersPageState extends State<ListUsersPage> {
                   children: <Widget>[
                     StreamBuilder<List<User>>(
                         stream: _block.counterStream,
-                        initialData: null,
                         builder: (contex, snapshot) {
-                          if (snapshot.data.length > 0) {
+                          if (snapshot.hasData) {
                             return Form(
                               key: _formKey,
                               child: Column(
@@ -174,6 +173,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
                               ),
                             );
                           }
+                          return Text('Esperando datos');
                         })
                   ],
                 ),

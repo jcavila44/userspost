@@ -17,7 +17,7 @@ class _SelectWidgetState extends State<SelectWidget> {
     return Container(
       child: Container(
         alignment: Alignment.topLeft,
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery.of(context).size.width * 0.9,
         height: 70,
         padding: EdgeInsets.symmetric(
           horizontal: 10,

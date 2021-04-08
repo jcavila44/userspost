@@ -6,11 +6,13 @@ class InputRegister extends StatelessWidget {
   final String placeholder;
   final double placeholderSize;
   final controllerFunct;
+  final onchangeInput;
 
   const InputRegister({
     @required this.placeholder,
     @required this.placeholderSize,
     @required this.controllerFunct,
+    this.onchangeInput,
   });
 
   @override
@@ -34,6 +36,7 @@ class InputRegister extends StatelessWidget {
           color: Colors.black,
         ),
         controller: controllerFunct,
+        onChanged: onchangeInput,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           fillColor: Colors.white,

@@ -240,9 +240,8 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                 ],
                               ),
                             );
-                          } else {
-                            return Container();
                           }
+                          return Text('Esperando datos ...');
                         },
                       ),
                     ],

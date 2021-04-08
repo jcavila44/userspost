@@ -5,25 +5,20 @@ import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/selectinput_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
-class RegisterUserPage extends StatefulWidget {
-  static final routeName = 'registeruser';
-  // RegisterUserPage({Key key}) : super(key: key);
+class GestionUserPage extends StatefulWidget {
+  GestionUserPage({Key key}) : super(key: key);
+  static final routeName = 'manageuser';
+
   @override
-  _RegisterUserPage createState() => _RegisterUserPage();
+  _GestionUserPageState createState() => _GestionUserPageState();
 }
 
-class _RegisterUserPage extends State<RegisterUserPage> {
+class _GestionUserPageState extends State<GestionUserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final nick1 = TextEditingController();
   final nick2 = TextEditingController();
-  var data = 'hola onchange';
   FocusNode focusNode;
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +40,7 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                 ),
                 onPressed: () => _scaffoldKey.currentState.openDrawer(),
               ),
-              title: Text('Registro de usuarios'),
+              title: Text('Gestión de Usuario'),
               centerTitle: true,
             ),
             body: SafeArea(
@@ -64,9 +59,6 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                             placeholder: 'Nombre',
                             placeholderSize: 25,
                             controllerFunct: nick1,
-                            onchangeInput: (String data) {
-                              print(data);
-                            },
                           ),
                           SizedBox(height: 20),
                           InputRegister(
@@ -74,6 +66,8 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                             placeholderSize: 25,
                             controllerFunct: nick2,
                           ),
+                          SizedBox(height: 20),
+                          SelectWidget(),
                           SizedBox(height: 20),
                           SelectWidget(),
                           SizedBox(height: 20),

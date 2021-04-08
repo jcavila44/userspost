@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:userspost/blocs/user_list_bloc.dart';
 import 'package:userspost/models/user/paises.dart';
 import 'package:userspost/models/user/user_model.dart';
+import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
@@ -50,6 +51,8 @@ class _ListUsersPageState extends State<ListUsersPage> {
 
   @override
   Widget build(BuildContext context) {
+    var keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
+
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -57,6 +60,19 @@ class _ListUsersPageState extends State<ListUsersPage> {
         },
         child: Container(
           child: Scaffold(
+            floatingActionButton: keyboardIsOpened
+                ? null
+                : CupertinoButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'registeruser');
+                    },
+                    color: Colors.blue,
+                    child: Text('Añadir Usuario'),
+                  ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            bottomNavigationBar: BottomAppBar(
+              color: Colors.white,
+            ),
             key: _scaffoldKey,
             // El Drawer es el menú izquierdo
             drawer: SideBarWidget(),
@@ -68,17 +84,18 @@ class _ListUsersPageState extends State<ListUsersPage> {
                 ),
                 onPressed: () => _scaffoldKey.currentState.openDrawer(),
               ),
-              title: Text('Registro de usuarios'),
+              title: Text('Lista de usuarios'),
               centerTitle: true,
             ),
-            body: SafeArea(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    StreamBuilder<List<User>>(
+            body: SingleChildScrollView(
+              child: SafeArea(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      StreamBuilder<List<User>>(
                         stream: _block.counterStream,
                         builder: (contex, snapshot) {
                           if (snapshot.hasData) {
@@ -89,92 +106,147 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                 children: <Widget>[
                                   SizedBox(height: 20),
                                   InputRegister(
-                                      placeholder: 'Search...',
-                                      placeholderSize: 20,
-                                      controllerFunct: searchInputController,
-                                      heightZise: 50),
-                                  SizedBox(height: 10),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.vertical,
+                                    placeholder: 'Search...',
+                                    placeholderSize: 25,
+                                    controllerFunct: searchInputController,
+                                  ),
+                                  SizedBox(height: 20),
+                                  Container(
+                                    height: 450,
                                     child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: DataTable(
-                                        dividerThickness: 0,
-                                        dataRowHeight: 50,
-                                        headingRowHeight: 50,
-                                        sortColumnIndex:
-                                            0, // icono de la flecha en el titulo
-                                        sortAscending:
-                                            sortAscending, //Orientacion de la flecha
-                                        columns: [
-                                          DataColumn(
-                                            label: Text('Nombre'),
-                                            numeric: false,
-                                            onSort: (columnIndex, ascending) {
-                                              setState(
-                                                () {
-                                                  sortAscending =
-                                                      !sortAscending;
-                                                },
-                                              );
-                                              ordenarColumna(
-                                                  columnIndex, ascending);
-                                            },
-                                          ),
-                                          DataColumn(
-                                            label: Text('Email'),
-                                            numeric: false,
-                                            tooltip: 'Email',
-                                          ),
-                                          DataColumn(
-                                            label: Text('Genero'),
-                                            numeric: false,
-                                            tooltip: 'Genero',
-                                          ),
-                                          DataColumn(
-                                            label: Text('Estado'),
-                                            numeric: false,
-                                            tooltip: 'Estado',
-                                          ),
-                                        ],
-                                        rows: snapshot.data
-                                            .map(
-                                              (pais) => DataRow(
-                                                cells: [
-                                                  DataCell(
-                                                    Text(
-                                                      pais.name,
+                                      scrollDirection: Axis.vertical,
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: DataTable(
+                                          columnSpacing: 30,
+                                          dividerThickness: 0,
+                                          dataRowHeight: 50,
+                                          headingRowHeight: 50,
+                                          sortColumnIndex:
+                                              0, // icono de la flecha en el titulo
+                                          sortAscending:
+                                              sortAscending, //Orientacion de la flecha
+                                          columns: [
+                                            DataColumn(
+                                              label: Text('Nombre'),
+                                              numeric: false,
+                                              onSort: (columnIndex, ascending) {
+                                                setState(
+                                                  () {
+                                                    sortAscending =
+                                                        !sortAscending;
+                                                  },
+                                                );
+                                                ordenarColumna(
+                                                    columnIndex, ascending);
+                                              },
+                                            ),
+                                            DataColumn(
+                                              label: Text('Email'),
+                                              numeric: false,
+                                              tooltip: 'Email',
+                                            ),
+                                            DataColumn(
+                                              label: Text('Genero'),
+                                              numeric: false,
+                                              tooltip: 'Genero',
+                                            ),
+                                            DataColumn(
+                                              label: Text('Estado'),
+                                              numeric: false,
+                                              tooltip: 'Estado',
+                                            ),
+                                            DataColumn(
+                                              label: Text('Gestion'),
+                                              numeric: false,
+                                              tooltip: 'Gestion',
+                                            ),
+                                            DataColumn(
+                                              label: Text('VerPosts'),
+                                              numeric: false,
+                                              tooltip: 'VerPosts',
+                                            ),
+                                          ],
+                                          rows: snapshot.data
+                                              .map(
+                                                (pais) => DataRow(
+                                                  cells: [
+                                                    DataCell(
+                                                      Text(
+                                                        pais.name,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  DataCell(
-                                                    Text(
-                                                      pais.gender,
+                                                    DataCell(
+                                                      Text(
+                                                        pais.gender,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  DataCell(
-                                                    Text(
-                                                      pais.status,
+                                                    DataCell(
+                                                      Text(
+                                                        pais.status,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  DataCell(
-                                                    Text(
-                                                      pais.email,
+                                                    DataCell(
+                                                      Text(
+                                                        pais.email,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                            .toList(),
+                                                    DataCell(
+                                                      Container(
+                                                        padding:
+                                                            EdgeInsets.all(3),
+                                                        child: ButtonDrawer(
+                                                          iconButton: Icon(
+                                                            Icons.settings,
+                                                            color: Colors.white,
+                                                          ),
+                                                          labelButton: '',
+                                                          onPressed: () {
+                                                            Navigator.pushNamed(
+                                                                context,
+                                                                'manageuser');
+                                                          },
+                                                          buttonColor:
+                                                              Colors.blue,
+                                                          labelColor: null,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    DataCell(
+                                                      Container(
+                                                        padding:
+                                                            EdgeInsets.all(3),
+                                                        child: ButtonDrawer(
+                                                          iconButton: Icon(
+                                                            Icons.search,
+                                                            color: Colors.white,
+                                                          ),
+                                                          labelButton: '',
+                                                          onPressed: () {},
+                                                          buttonColor:
+                                                              Colors.blue,
+                                                          labelColor: null,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
                             );
+                          } else {
+                            return Container();
                           }
-                          return Text('Esperando datos');
-                        })
-                  ],
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

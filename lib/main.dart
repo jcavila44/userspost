@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:userspost/pages/manage_user_page.dart';
 import 'package:userspost/pages/register_user_page.dart';
 import 'package:userspost/widgets/splash_widget.dart';
 import 'package:userspost/pages/list_user_page.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         RegisterUserPage.routeName: (BuildContext context) =>
             RegisterUserPage(),
         ListUsersPage.routeName: (BuildContext context) => ListUsersPage(),
+        GestionUserPage.routeName: (BuildContext context) => GestionUserPage(),
       },
       debugShowCheckedModeBanner: false, //Quita el letrero de debugs
     );

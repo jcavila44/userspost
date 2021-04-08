@@ -28,17 +28,19 @@ class ButtonDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               iconButton,
-              Container(
-                padding: EdgeInsets.all(13),
-                child: Text(
-                  labelButton,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: labelColor,
-                  ),
-                ),
-              )
+              (labelButton != '')
+                  ? Container(
+                      padding: EdgeInsets.all(13),
+                      child: Text(
+                        labelButton,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: labelColor,
+                        ),
+                      ),
+                    )
+                  : Container()
             ],
           ),
         ),

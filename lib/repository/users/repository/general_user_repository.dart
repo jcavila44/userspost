@@ -9,4 +9,5 @@ class General_user_repository {
   Future<ApiResponse> getUserById(int id) => userApi.getUserById(id);
   Future<ApiResponse> createUser(User user) => userApi.createUser(user);
   Future<ApiResponse> updateUser(User user) => userApi.updateUser(user);
+  Future<ApiResponse> delUserById(int id) => userApi.delUserById(id);
 }

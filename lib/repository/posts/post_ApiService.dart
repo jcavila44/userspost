@@ -2,22 +2,22 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:userspost/models/user/user_model.dart';
+import 'package:userspost/models/post/post_model.dart';
 import 'package:userspost/models/utils/apiresponse_model.dart';
 import 'package:userspost/resources/constants.dart';
 
-class User_ApiService {
-  User_ApiService();
-  User _user;
+class Post_ApiService {
+  Post_ApiService();
+  Post _post;
 
-//Consultar todos los usuarios
-  Future<ApiResponse> getAllUsers(int page) async {
-    var listUsers = <User>[];
+//Consultar todos los posts
+  Future<ApiResponse> getAllPosts(int page) async {
+    var listPosts = <Post>[];
     var queryParameters = {'page': page.toString()};
 
     var apiResponse = ApiResponse(statusResponse: 0);
     var uri = Uri.http(
-        Constants.urlAuthority, Constants.urlgetUsers, queryParameters);
+        Constants.urlAuthority, Constants.urlgetPosts, queryParameters);
     var res = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
       HttpHeaders.authorizationHeader: Constants.authorizationheader
@@ -28,24 +28,20 @@ class User_ApiService {
 
     if (apiResponse.statusResponse == 200) {
       resBody['data'].forEach((i) {
-        listUsers.add(User.fromJson(i));
+        listPosts.add(Post.fromJson(i));
         return i;
       });
-      apiResponse.object = listUsers;
-
-      /*print('prueba ApiService ' + apiResponse.statusResponse.toString());
-      print('total registros ${resBody['meta']['pagination']['total']}');
-      print('nombre registro 0 ' + resBody['data'][0]['name']);*/
+      apiResponse.object = listPosts;
     }
 
     return apiResponse;
   }
 
-//Consultar un usuario especifico
-  Future<ApiResponse> getUserById(int id) async {
+//Consultar un post especifico por id del Post
+  Future<ApiResponse> getPostById(int id) async {
     var apiResponse = ApiResponse(statusResponse: 0);
     var uri = Uri.http(
-        Constants.urlAuthority, Constants.urlgetUsers + '/' + id.toString());
+        Constants.urlAuthority, Constants.urlgetPosts + '/' + id.toString());
 
     var res = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
@@ -56,8 +52,8 @@ class User_ApiService {
     apiResponse.statusResponse = res.statusCode;
 
     if (apiResponse.statusResponse == 200) {
-      _user = User.fromJson(resBody['data']);
-      apiResponse.object = _user;
+      _post = Post.fromJson(resBody['data']);
+      apiResponse.object = _post;
     } else {
       throw Exception('Fallo');
     }
@@ -65,11 +61,43 @@ class User_ApiService {
     return apiResponse;
   }
 
-//Crear un usuario
-  Future<ApiResponse> createUser(User user) async {
+//Consultar los post especifico por id del User
+  Future<ApiResponse> getAllPostByUserId(int idUser) async {
+    var listPosts = <Post>[];
     var apiResponse = ApiResponse(statusResponse: 0);
-    var body = json.encode(user.toJson());
-    var uri = Uri.https(Constants.urlAuthority, Constants.urlInsertUser);
+    var uri = Uri.https(
+        Constants.urlAuthority,
+        Constants.urlgetUsers +
+            '/' +
+            idUser.toString() +
+            Constants.urlgetPostsByUserId);
+
+    var res = await http.get(uri, headers: {
+      HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
+      HttpHeaders.authorizationHeader: Constants.authorizationheader
+    });
+
+    var resBody = json.decode(res.body);
+    apiResponse.statusResponse = res.statusCode;
+
+    if (apiResponse.statusResponse == 200) {
+      resBody['data'].forEach((i) {
+        listPosts.add(Post.fromJson(i));
+        return i;
+      });
+      apiResponse.object = listPosts;
+    } else {
+      throw Exception('Fallo');
+    }
+
+    return apiResponse;
+  }
+
+//Crear un post
+  Future<ApiResponse> createPost(Post post) async {
+    var apiResponse = ApiResponse(statusResponse: 0);
+    var body = json.encode(post.toJson());
+    var uri = Uri.https(Constants.urlAuthority, Constants.urlInsertPost);
 
     var res = await http.post(uri,
         headers: {
@@ -82,8 +110,8 @@ class User_ApiService {
     apiResponse.statusResponse = res.statusCode;
 
     if (apiResponse.statusResponse == 200) {
-      _user = User.fromJson(resBody['data']);
-      apiResponse.object = _user;
+      _post = Post.fromJson(resBody['data']);
+      apiResponse.object = _post;
     } else {
       throw Exception('Fallo');
     }
@@ -91,12 +119,12 @@ class User_ApiService {
     return apiResponse;
   }
 
-  //Modificar un usuario
-  Future<ApiResponse> updateUser(User user) async {
+  //Modificar un post
+  Future<ApiResponse> updatePost(Post post) async {
     var apiResponse = ApiResponse(statusResponse: 0);
-    var body = json.encode(user.toJson());
+    var body = json.encode(post.toJson());
     var uri = Uri.https(Constants.urlAuthority,
-        Constants.urlInsertUser + '/' + user.id.toString());
+        Constants.urlInsertPost + '/' + post.id.toString());
 
     var res = await http.put(uri,
         headers: {
@@ -109,8 +137,8 @@ class User_ApiService {
     apiResponse.statusResponse = res.statusCode;
 
     if (apiResponse.statusResponse == 200) {
-      _user = User.fromJson(resBody['data']);
-      apiResponse.object = _user;
+      _post = Post.fromJson(resBody['data']);
+      apiResponse.object = _post;
     } else {
       throw Exception('Fallo');
     }
@@ -118,11 +146,11 @@ class User_ApiService {
     return apiResponse;
   }
 
-  //Modulo para eliminar un usuario
-  Future<ApiResponse> delUserById(int id) async {
+  //Modulo para eliminar un post
+  Future<ApiResponse> delPostById(int id) async {
     var apiResponse = ApiResponse(statusResponse: 0);
     var uri = Uri.https(
-        Constants.urlAuthority, Constants.urlgetUsers + '/' + id.toString());
+        Constants.urlAuthority, Constants.urlgetPosts + '/' + id.toString());
 
     var res = await http.delete(uri, headers: {
       HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,

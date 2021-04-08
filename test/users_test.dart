@@ -12,10 +12,7 @@ void main() {
       _api = await _rep.getAllUsers(74);
 
       expect(_api.statusResponse, 200);
-      print('======================');
-
       listUsers = _api.object;
-
       print(listUsers.length);
 
       for (var i = 0; i < listUsers.length; i++) {
@@ -68,6 +65,14 @@ void main() {
 
       user = _api.object;
       print(_api.statusResponse);
+      expect(_api.statusResponse, 200);
+    });
+
+    test('test delPostById', () async {
+      ApiResponse _api;
+
+      final _rep = General_user_repository();
+      _api = await _rep.delUserById(1385);
       expect(_api.statusResponse, 200);
     });
   });

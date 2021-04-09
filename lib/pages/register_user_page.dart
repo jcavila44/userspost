@@ -90,7 +90,6 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                             selectedLocation: _selectedLocation,
                             onchangeInput: (newValue) {
                               setState(() {
-                                print("Genero: " + newValue);
                                 _selectedLocation = newValue;
                                 user.gender = newValue;
                               });
@@ -114,7 +113,10 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                   iconButton: Icon(Icons.check),
                                   labelButton: 'Guardar',
                                   onPressed: () {
-                                    _block.user = user;
+                                    print('Genero :' + user.gender);
+                                    _block.sendEvent
+                                        .add(RegisterEvent(user: user));
+                                    // _block.user = user;
                                     // print('Nombre 2 :' + user.name);
                                   },
                                   buttonColor: Colors.blue,

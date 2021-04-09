@@ -49,11 +49,6 @@ class _SelectWidgetState extends State<SelectWidget> {
           underline: SizedBox(),
           value: widget.selectedLocation,
           onChanged: widget.onchangeInput,
-          // onChanged: (newValue) {
-          //   setState(() {
-          //     _selectedLocation = newValue;
-          //   });
-          // },
           items: _locations.map((location) {
             return DropdownMenuItem(
               value: location,

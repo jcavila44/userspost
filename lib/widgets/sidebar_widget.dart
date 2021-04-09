@@ -47,7 +47,7 @@ class SideBarWidget extends StatelessWidget {
                 ),
                 labelButton: 'Posts',
                 onPressed: () {
-                  Navigator.pushNamed(context, 'registeruser');
+                  Navigator.pushNamed(context, 'listposts');
                 },
                 buttonColor: null,
                 labelColor: Colors.black,

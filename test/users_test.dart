@@ -9,13 +9,14 @@ void main() {
       var listUsers = <User>[];
       ApiResponse _api;
       final _rep = General_user_repository();
-      _api = await _rep.getAllUsers(74);
+      _api = await _rep.getAllUsers(50);
 
       expect(_api.statusResponse, 200);
       listUsers = _api.object;
       print(listUsers.length);
 
       for (var i = 0; i < listUsers.length; i++) {
+        print(listUsers[i].id);
         print(listUsers[i].name);
       }
     });

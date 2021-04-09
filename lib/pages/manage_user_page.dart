@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/selectinput_widget.dart';
@@ -19,9 +22,26 @@ class _GestionUserPageState extends State<GestionUserPage> {
   final nick1 = TextEditingController();
   final nick2 = TextEditingController();
   FocusNode focusNode;
+  // ignore: unused_field
+  String _selectedLocation;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final User arguments = ModalRoute.of(context).settings.arguments;
+
+    _selectedLocation = arguments?.gender ?? '';
+
+    if (arguments != null) {
+      print('Nombre' + arguments.name + '->' + arguments.id.toString());
+    } else {
+      print('no');
+    }
+
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -56,21 +76,30 @@ class _GestionUserPageState extends State<GestionUserPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           InputRegister(
+                            defaultValue: arguments.name,
                             placeholder: 'Nombre',
                             placeholderSize: 25,
                             controllerFunct: nick1,
                           ),
                           SizedBox(height: 20),
                           InputRegister(
+                            defaultValue: arguments.email,
                             placeholder: 'Email',
                             placeholderSize: 25,
                             controllerFunct: nick2,
                           ),
                           SizedBox(height: 20),
-                          SelectWidget(),
+                          SelectWidget(
+                            selectedLocation: _selectedLocation,
+                            onchangeInput: (newValue) {
+                              setState(() {
+                                print('Genero: ' + newValue);
+                                _selectedLocation = newValue;
+                                arguments.gender = newValue;
+                              });
+                            },
+                          ),
                           SizedBox(height: 20),
-                          // SelectWidget(),
-                          // SizedBox(height: 20),
                           ListTile(
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -86,7 +115,7 @@ class _GestionUserPageState extends State<GestionUserPage> {
                                 ),
                                 ButtonDrawer(
                                   iconButton: Icon(Icons.check),
-                                  labelButton: 'Guardar',
+                                  labelButton: 'Actualizar',
                                   onPressed: () {},
                                   buttonColor: Colors.blue,
                                   labelColor: Colors.white,

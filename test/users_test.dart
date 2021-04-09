@@ -9,7 +9,7 @@ void main() {
       var listUsers = <User>[];
       ApiResponse _api;
       final _rep = General_user_repository();
-      _api = await _rep.getAllUsers(50);
+      _api = await _rep.getAllUsers(1);
 
       expect(_api.statusResponse, 200);
       listUsers = _api.object;

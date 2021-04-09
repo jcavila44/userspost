@@ -8,7 +8,7 @@ import 'package:userspost/widgets/sidebar_widget.dart';
 
 class ListPostsPage extends StatefulWidget {
   ListPostsPage({Key key}) : super(key: key);
-  static final routeName = 'listusers';
+  static final routeName = 'listposts';
 
   @override
   _ListPostsPageState createState() => _ListPostsPageState();

@@ -7,12 +7,14 @@ class InputRegister extends StatelessWidget {
   final double placeholderSize;
   final controllerFunct;
   final onchangeInput;
+  final String defaultValue;
 
   const InputRegister({
     @required this.placeholder,
     @required this.placeholderSize,
     this.controllerFunct,
     this.onchangeInput,
+    this.defaultValue,
   });
 
   @override
@@ -31,11 +33,12 @@ class InputRegister extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        initialValue: defaultValue ?? '',
         style: TextStyle(
           fontSize: placeholderSize,
           color: Colors.black,
         ),
-        controller: controllerFunct,
+        // controller: controllerFunct,
         onChanged: onchangeInput,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(

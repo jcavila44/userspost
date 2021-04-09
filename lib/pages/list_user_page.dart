@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userspost/blocs/user_list_bloc.dart';
@@ -103,6 +105,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                 children: <Widget>[
                                   SizedBox(height: 20),
                                   InputRegister(
+                                    defaultValue: null,
                                     placeholder: 'Search...',
                                     placeholderSize: 25,
                                     controllerFunct: searchInputController,
@@ -199,9 +202,16 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                                           ),
                                                           labelButton: '',
                                                           onPressed: () {
+                                                            var resBody =
+                                                                json.encode(
+                                                                    users.id);
+                                                            print(resBody);
+
                                                             Navigator.pushNamed(
-                                                                context,
-                                                                'manageuser');
+                                                              context,
+                                                              'manageuser',
+                                                              arguments: users,
+                                                            );
                                                           },
                                                           buttonColor:
                                                               Colors.blue,

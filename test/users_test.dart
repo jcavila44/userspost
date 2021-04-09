@@ -16,6 +16,7 @@ void main() {
       print(listUsers.length);
 
       for (var i = 0; i < listUsers.length; i++) {
+        print(listUsers[i].id);
         print(listUsers[i].name);
       }
     });

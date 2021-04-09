@@ -125,7 +125,7 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                               sortAscending, //Orientacion de la flecha
                                           columns: [
                                             DataColumn(
-                                              label: Text('Title'),
+                                              label: Text('Titulo'),
                                               numeric: false,
                                               onSort: (columnIndex, ascending) {
                                                 setState(

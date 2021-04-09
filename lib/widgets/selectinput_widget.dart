@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SelectWidget extends StatefulWidget {
-  SelectWidget({Key key}) : super(key: key);
+  final onchangeInput;
+  final selectedLocation;
+  SelectWidget({Key key, @required this.onchangeInput, this.selectedLocation})
+      : super(key: key);
 
   @override
   _SelectWidgetState createState() => _SelectWidgetState();
@@ -10,7 +13,6 @@ class SelectWidget extends StatefulWidget {
 
 class _SelectWidgetState extends State<SelectWidget> {
   final List<String> _locations = ['Female', 'Male'];
-  String _selectedLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +47,13 @@ class _SelectWidgetState extends State<SelectWidget> {
           icon: Icon(Icons.arrow_drop_down),
           iconSize: 42,
           underline: SizedBox(),
-          value: _selectedLocation,
-          onChanged: (newValue) {
-            setState(() {
-              _selectedLocation = newValue;
-            });
-          },
+          value: widget.selectedLocation,
+          onChanged: widget.onchangeInput,
+          // onChanged: (newValue) {
+          //   setState(() {
+          //     _selectedLocation = newValue;
+          //   });
+          // },
           items: _locations.map((location) {
             return DropdownMenuItem(
               value: location,

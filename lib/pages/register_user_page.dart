@@ -17,14 +17,14 @@ class RegisterUserPage extends StatefulWidget {
 class _RegisterUserPage extends State<RegisterUserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
-  final nick1 = TextEditingController();
-  final nick2 = TextEditingController();
+
   var data = 'hola onchange';
 
   final User user = User();
   final RegisterUserBloc _block = RegisterUserBloc();
 
   FocusNode focusNode;
+  String _selectedLocation;
 
   @override
   void dispose() {
@@ -86,7 +86,16 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                             },
                           ),
                           SizedBox(height: 20),
-                          SelectWidget(),
+                          SelectWidget(
+                            selectedLocation: _selectedLocation,
+                            onchangeInput: (newValue) {
+                              setState(() {
+                                print("Genero: " + newValue);
+                                _selectedLocation = newValue;
+                                user.gender = newValue;
+                              });
+                            },
+                          ),
                           SizedBox(height: 20),
                           ListTile(
                             title: Row(

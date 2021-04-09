@@ -83,6 +83,7 @@ class User_ApiService {
     apiResponse.statusResponse = res.statusCode;
 
     if (apiResponse.statusResponse == 200) {
+      // print(json.decode(resBody['data']));
       _user = User.fromJson(resBody['data']);
       apiResponse.object = _user;
     } else {

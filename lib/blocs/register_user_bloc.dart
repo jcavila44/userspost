@@ -29,15 +29,11 @@ class RegisterUserBloc {
 
   Future<void> _onEvent(RegisterUserBase event) async {
     if (event is RegisterEvent) {
-      print('goll :' + json.encode(event.user));
       event.user.status = 'Active';
-
       ApiResponse _api;
       final _rep = General_user_repository();
       _api = await _rep.createUser(event.user);
-
-      print('Response : ' + json.encode(_api));
-      _output.add(user);
+      _output.add(_api.object);
     }
   }
 }

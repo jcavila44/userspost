@@ -40,7 +40,7 @@ void main() {
       var user = User(
           name: 'Alejandro Magno',
           gender: 'Male',
-          email: 'magno7@xyz.com',
+          email: 'magno8@xyz.com',
           status: 'Active');
 
       final _rep = General_user_repository();

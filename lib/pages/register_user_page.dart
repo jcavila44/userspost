@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:userspost/blocs/register_user_bloc.dart';
 import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
@@ -61,73 +62,139 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          InputRegister(
-                            placeholder: 'Nombre',
-                            placeholderSize: 25,
-                            onchangeInput: (String data) {
-                              setState(() {
-                                user.name = data;
-                              });
-                            },
-                          ),
-                          SizedBox(height: 20),
-                          InputRegister(
-                            placeholder: 'Email',
-                            placeholderSize: 25,
-                            onchangeInput: (String data) {
-                              setState(() {
-                                user.email = data;
-                              });
-                            },
-                          ),
-                          SizedBox(height: 20),
-                          SelectWidget(
-                            selectedLocation: _selectedLocation,
-                            onchangeInput: (newValue) {
-                              setState(() {
-                                _selectedLocation = newValue;
-                                user.gender = newValue;
-                              });
-                            },
-                          ),
-                          SizedBox(height: 20),
-                          ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    StreamBuilder<User>(
+                        stream: _block.registerStream,
+                        // ignore: missing_return
+                        builder: (contex, snapshot) {
+                          if (snapshot?.data != null) {
+                            // Fluttertoast.showToast(
+                            //     msg: 'Usuario creado correctamente.',
+                            //     toastLength: Toast.LENGTH_SHORT,
+                            //     gravity: ToastGravity.CENTER,
+                            //     timeInSecForIosWeb: 1,
+                            //     backgroundColor: Colors.blue,
+                            //     textColor: Colors.white,
+                            //     fontSize: 18.0);
+                            return Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                // height: 200,
+                                child: Card(
+                                  // color: Colors.black,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Padding(padding: EdgeInsets.all(14)),
+                                      Text(
+                                          'Nombre: ${snapshot?.data?.name ?? ""}'),
+                                      Padding(padding: EdgeInsets.all(7)),
+                                      Text(
+                                          'Correo: ${snapshot?.data?.email ?? ""}'),
+                                      Padding(padding: EdgeInsets.all(7)),
+                                      Text(
+                                          'Genero: ${snapshot?.data?.gender ?? ""}'),
+                                      Padding(padding: EdgeInsets.all(7)),
+                                      Text(
+                                          'Estado: ${snapshot?.data?.status ?? ""}'),
+                                      Padding(padding: EdgeInsets.all(7)),
+                                      MaterialButton(
+                                        minWidth: 200.0,
+                                        height: 40.0,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, 'registeruser');
+                                        },
+                                        color: Colors.lightBlue,
+                                        child: Text('Crear nuevo usuario',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                      ),
+                                    ],
+                                  ),
+                                ));
+                          }
+                          return Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                ButtonDrawer(
-                                  iconButton: Icon(Icons.arrow_back),
-                                  labelButton: 'Atras',
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, 'home');
+                                InputRegister(
+                                  placeholder: 'Nombre',
+                                  placeholderSize: 25,
+                                  onchangeInput: (String data) {
+                                    setState(() {
+                                      user.name = data;
+                                    });
                                   },
-                                  buttonColor: Colors.grey,
-                                  labelColor: Colors.white,
                                 ),
-                                ButtonDrawer(
-                                  iconButton: Icon(Icons.check),
-                                  labelButton: 'Guardar',
-                                  onPressed: () {
-                                    print('Genero :' + user.gender);
-                                    _block.sendEvent
-                                        .add(RegisterEvent(user: user));
-                                    // _block.user = user;
-                                    // print('Nombre 2 :' + user.name);
+                                SizedBox(height: 20),
+                                InputRegister(
+                                  placeholder: 'Email',
+                                  placeholderSize: 25,
+                                  onchangeInput: (String data) {
+                                    setState(() {
+                                      user.email = data;
+                                    });
                                   },
-                                  buttonColor: Colors.blue,
-                                  labelColor: Colors.white,
                                 ),
+                                SizedBox(height: 20),
+                                SelectWidget(
+                                  selectedLocation: _selectedLocation,
+                                  onchangeInput: (newValue) {
+                                    setState(() {
+                                      _selectedLocation = newValue;
+                                      user.gender = newValue;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 20),
+                                ListTile(
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      ButtonDrawer(
+                                        iconButton: Icon(Icons.arrow_back),
+                                        labelButton: 'Atras',
+                                        onPressed: () {
+                                          Navigator.pushNamed(context, 'home');
+                                        },
+                                        buttonColor: Colors.grey,
+                                        labelColor: Colors.white,
+                                      ),
+                                      ButtonDrawer(
+                                        iconButton: Icon(Icons.check),
+                                        labelButton: 'Guardar',
+                                        onPressed: () {
+                                          if ((user.email == '' ||
+                                                  user.email == null) ||
+                                              (user.name == '' ||
+                                                  user.name == null) ||
+                                              (user.gender == '' ||
+                                                  user.gender == null)) {
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    'Debe diligenciar la información requerida.',
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 18.0);
+                                          } else {
+                                            _block.sendEvent
+                                                .add(RegisterEvent(user: user));
+                                          }
+                                        },
+                                        buttonColor: Colors.blue,
+                                        labelColor: Colors.white,
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
+                          );
+                        })
                   ],
                 ),
               ),

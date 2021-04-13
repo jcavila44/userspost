@@ -21,6 +21,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
   final _formKey = GlobalKey<FormState>();
   final searchInputController = TextEditingController();
   bool sortAscending;
+  int searchAfter;
 
   List<User> users;
   final UserListBloc _block = UserListBloc();
@@ -51,7 +52,6 @@ class _ListUsersPageState extends State<ListUsersPage> {
   @override
   Widget build(BuildContext context) {
     var keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
-
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -109,6 +109,18 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                     placeholder: 'Search...',
                                     placeholderSize: 25,
                                     controllerFunct: searchInputController,
+                                    onchangeInput: (String data) {
+                                      setState(() {
+                                        if (data.length > 2) {
+                                          searchAfter = data.length;
+                                          _block.sendEvent.add(
+                                              GetListEventSearch(search: data));
+                                        } else if (data.isEmpty &&
+                                            searchAfter == 3) {
+                                          _block.sendEvent.add(GetListEvent());
+                                        }
+                                      });
+                                    },
                                   ),
                                   SizedBox(height: 20),
                                   Container(

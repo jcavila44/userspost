@@ -156,7 +156,8 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                         iconButton: Icon(Icons.arrow_back),
                                         labelButton: 'Atras',
                                         onPressed: () {
-                                          Navigator.pushNamed(context, 'home');
+                                          Navigator.pushNamed(
+                                              context, 'listusers');
                                         },
                                         buttonColor: Colors.grey,
                                         labelColor: Colors.white,

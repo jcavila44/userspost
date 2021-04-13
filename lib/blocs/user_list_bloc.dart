@@ -1,11 +1,19 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/models/utils/apiresponse_model.dart';
 import 'package:userspost/repository/users/repository/general_user_repository.dart';
 
-class UserListBase {}
+class UserListBase {
+  final String search;
+  UserListBase({this.search});
+}
 
 class GetListEvent extends UserListBase {}
+
+class GetListEventSearch extends UserListBase {
+  GetListEventSearch({@required String search}) : super(search: search);
+}
 
 class UserListBloc {
   final StreamController<UserListBase> _input = StreamController();
@@ -26,10 +34,18 @@ class UserListBloc {
   }
 
   Future<void> _onEvent(UserListBase event) async {
-    ApiResponse _api;
-    final _rep = General_user_repository();
-    _api = await _rep.getAllUsers(1);
-    listUsers = _api.object;
-    _output.add(listUsers);
+    if (event is GetListEvent) {
+      ApiResponse _api;
+      final _rep = General_user_repository();
+      _api = await _rep.getAllUsers(1);
+      listUsers = _api.object;
+      _output.add(listUsers);
+    } else {
+      ApiResponse _api;
+      final _rep = General_user_repository();
+      _api = await _rep.getAllUsersSearch(1, event.search);
+      listUsers = _api.object;
+      _output.add(listUsers);
+    }
   }
 }

@@ -1,11 +1,17 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:userspost/models/post/post_model.dart';
 import 'package:userspost/models/utils/apiresponse_model.dart';
 import 'package:userspost/repository/posts/repository/general_post_repository.dart';
 
-class PostListBase {}
+class PostListBase {
+  int id_user;
+  PostListBase({this.id_user});
+}
 
-class GetListEvent extends PostListBase {}
+class GetListEvent extends PostListBase {
+  GetListEvent({@required int id_user}) : super(id_user: id_user);
+}
 
 class PostListBloc {
   final StreamController<PostListBase> _input = StreamController();
@@ -28,8 +34,9 @@ class PostListBloc {
   Future<void> _onEvent(PostListBase event) async {
     ApiResponse _api;
     final _rep = General_post_repository();
-    _api = await _rep.getAllPosts(1);
+    _api = await _rep.getAllPostByUserId(event.id_user);
     listPosts = _api.object;
+
     _output.add(listPosts);
   }
 }

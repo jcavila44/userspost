@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userspost/blocs/post_list_bloc.dart';
 import 'package:userspost/models/post/post_model.dart';
+import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
-import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
 class ListPostsPage extends StatefulWidget {
-  ListPostsPage({Key key}) : super(key: key);
+  final User arguments;
+
+  ListPostsPage({Key key, this.arguments}) : super(key: key);
   static final routeName = 'listposts';
 
   @override
@@ -18,6 +20,9 @@ class _ListPostsPageState extends State<ListPostsPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final searchInputController = TextEditingController();
+
+  // final Post arguments = ModalRoute.of(context).settings.arguments;
+
   bool sortAscending;
 
   List<Post> posts;
@@ -27,7 +32,11 @@ class _ListPostsPageState extends State<ListPostsPage> {
   void initState() {
     super.initState();
     sortAscending = false;
-    _block.sendEvent.add(GetListEvent());
+
+    print(widget.arguments.name);
+    print(widget.arguments.id);
+
+    _block.sendEvent.add(GetListEvent(id_user: widget.arguments.id));
   }
 
   @override
@@ -61,7 +70,12 @@ class _ListPostsPageState extends State<ListPostsPage> {
                 ? null
                 : CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'registerpost');
+                      // Navigator.pushNamed(context, 'registerpost');
+                      Navigator.pushNamed(
+                        context,
+                        'registerpost',
+                        arguments: widget.arguments,
+                      );
                     },
                     color: Colors.blue,
                     child: Text('Añadir Post'),
@@ -102,11 +116,11 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(height: 20),
-                                  InputRegister(
-                                    placeholder: 'Search...',
-                                    placeholderSize: 25,
-                                    controllerFunct: searchInputController,
-                                  ),
+                                  // InputRegister(
+                                  //   placeholder: 'Search...',
+                                  //   placeholderSize: 25,
+                                  //   controllerFunct: searchInputController,
+                                  // ),
                                   SizedBox(height: 20),
                                   Container(
                                     height: 450,
@@ -139,9 +153,9 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                               },
                                             ),
                                             DataColumn(
-                                              label: Text('VerPosts'),
+                                              label: Text('Ver Comentarios'),
                                               numeric: false,
-                                              tooltip: 'VerPosts',
+                                              tooltip: 'Ver Comentarios',
                                             ),
                                           ],
                                           rows: snapshot.data
@@ -149,9 +163,10 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                                 (posts) => DataRow(
                                                   cells: [
                                                     DataCell(
-                                                      Text(
-                                                        posts.title,
-                                                      ),
+                                                      Text(posts.title
+                                                          // posts.title
+                                                          //     .substring(1, 40),
+                                                          ),
                                                     ),
                                                     DataCell(
                                                       Container(

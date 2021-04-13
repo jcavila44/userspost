@@ -8,6 +8,7 @@ class InputRegister extends StatelessWidget {
   final controllerFunct;
   final onchangeInput;
   final String defaultValue;
+  final bool enabled;
 
   const InputRegister({
     @required this.placeholder,
@@ -15,6 +16,7 @@ class InputRegister extends StatelessWidget {
     this.controllerFunct,
     this.onchangeInput,
     this.defaultValue,
+    this.enabled,
   });
 
   @override
@@ -39,6 +41,8 @@ class InputRegister extends StatelessWidget {
           color: Colors.black,
         ),
         // controller: controllerFunct,
+        enabled: enabled ?? true,
+        // autofocus: true,
         onChanged: onchangeInput,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(

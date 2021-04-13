@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userspost/blocs/user_list_bloc.dart';
 import 'package:userspost/models/user/user_model.dart';
+import 'package:userspost/pages/list_post_page.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
@@ -241,7 +242,24 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                                             color: Colors.white,
                                                           ),
                                                           labelButton: '',
-                                                          onPressed: () {},
+                                                          onPressed: () {
+                                                            // Navigator.pushNamed(
+                                                            //   context,
+                                                            //   'listposts',
+                                                            //   arguments: users,
+                                                            // );
+
+                                                            Navigator.of(
+                                                                    context)
+                                                                .push(
+                                                              CupertinoPageRoute(
+                                                                builder: (context) =>
+                                                                    ListPostsPage(
+                                                                        arguments:
+                                                                            users),
+                                                              ),
+                                                            );
+                                                          },
                                                           buttonColor:
                                                               Colors.blue,
                                                           labelColor: null,

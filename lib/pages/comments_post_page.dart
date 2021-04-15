@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:userspost/blocs/comments_post_bloc.dart';
 import 'package:userspost/models/comments/comments_model.dart';
 import 'package:userspost/models/post/post_model.dart';
-import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
 class CommentsPostsPage extends StatefulWidget {
@@ -53,7 +52,7 @@ class _CommentsPostsPageState extends State<CommentsPostsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
+    //var keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
 
     return SafeArea(
       child: GestureDetector(

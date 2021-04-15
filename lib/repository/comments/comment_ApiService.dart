@@ -67,7 +67,7 @@ class Comment_ApiService {
     var apiResponse = ApiResponse(statusResponse: 0);
     var uri = Uri.https(
         Constants.urlAuthority,
-        Constants.urlgetComments +
+        Constants.urlgetPosts +
             '/' +
             idUser.toString() +
             Constants.urlgetCommentsByUserId);

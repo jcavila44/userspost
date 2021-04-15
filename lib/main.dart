@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:userspost/pages/comments_post_page.dart';
 import 'package:userspost/pages/manage_user_page.dart';
 import 'package:userspost/pages/register_post_page.dart';
 import 'package:userspost/pages/register_user_page.dart';
@@ -31,6 +32,8 @@ class MyApp extends StatelessWidget {
         ListPostsPage.routeName: (BuildContext context) => ListPostsPage(),
         RegisterPostPage.routeName: (BuildContext context) =>
             RegisterPostPage(),
+        CommentsPostsPage.routeName: (BuildContext context) =>
+            CommentsPostsPage(),
       },
       debugShowCheckedModeBanner: false, //Quita el letrero de debugs
     );

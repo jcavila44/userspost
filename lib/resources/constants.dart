@@ -18,4 +18,6 @@ class Constants {
   static const String urlgetComments = pathBase + '/comments';
   static const String urlgetCommentsByUserId = '/comments';
   static const String urlInsertComment = pathBase + '/comments';
+
+  // https://gorest.co.in/public-api/posts/6/comments
 }

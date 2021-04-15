@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:userspost/blocs/post_list_bloc.dart';
 import 'package:userspost/models/post/post_model.dart';
 import 'package:userspost/models/user/user_model.dart';
+import 'package:userspost/pages/comments_post_page.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
@@ -139,6 +140,11 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                               sortAscending, //Orientacion de la flecha
                                           columns: [
                                             DataColumn(
+                                              label: Text('Id'),
+                                              numeric: false,
+                                              tooltip: 'Id',
+                                            ),
+                                            DataColumn(
                                               label: Text('Titulo'),
                                               numeric: false,
                                               onSort: (columnIndex, ascending) {
@@ -163,6 +169,11 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                                 (posts) => DataRow(
                                                   cells: [
                                                     DataCell(
+                                                      Text(
+                                                        posts.id.toString(),
+                                                      ),
+                                                    ),
+                                                    DataCell(
                                                       Text(posts.title
                                                           // posts.title
                                                           //     .substring(1, 40),
@@ -179,9 +190,16 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                                           ),
                                                           labelButton: '',
                                                           onPressed: () {
-                                                            Navigator.pushNamed(
-                                                                context,
-                                                                'manageuser');
+                                                            Navigator.of(
+                                                                    context)
+                                                                .push(
+                                                              CupertinoPageRoute(
+                                                                builder: (context) =>
+                                                                    CommentsPostsPage(
+                                                                        arguments:
+                                                                            posts),
+                                                              ),
+                                                            );
                                                           },
                                                           buttonColor:
                                                               Colors.blue,

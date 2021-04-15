@@ -39,19 +39,19 @@ class SideBarWidget extends StatelessWidget {
                 buttonColor: null,
                 labelColor: Colors.black,
               ),
-              SizedBox(height: 10),
-              ButtonDrawer(
-                iconButton: Icon(
-                  Icons.list,
-                  color: Colors.black,
-                ),
-                labelButton: 'Posts',
-                onPressed: () {
-                  Navigator.pushNamed(context, 'listposts');
-                },
-                buttonColor: null,
-                labelColor: Colors.black,
-              ),
+              // SizedBox(height: 10),
+              // ButtonDrawer(
+              //   iconButton: Icon(
+              //     Icons.list,
+              //     color: Colors.black,
+              //   ),
+              //   labelButton: 'Posts',
+              //   onPressed: () {
+              //     Navigator.pushNamed(context, 'listposts');
+              //   },
+              //   buttonColor: null,
+              //   labelColor: Colors.black,
+              // ),
             ],
           ),
         ),

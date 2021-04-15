@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:userspost/blocs/update_user_bloc.dart';
 import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
@@ -17,8 +19,9 @@ class GestionUserPage extends StatefulWidget {
 class _GestionUserPageState extends State<GestionUserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
-  final nick1 = TextEditingController();
-  final nick2 = TextEditingController();
+  User user = User();
+  final UpdateUserBloc _block = UpdateUserBloc();
+
   FocusNode focusNode;
   // ignore: unused_field
   String _selectedLocation;
@@ -31,14 +34,8 @@ class _GestionUserPageState extends State<GestionUserPage> {
   @override
   Widget build(BuildContext context) {
     final User arguments = ModalRoute.of(context).settings.arguments;
-
+    user = arguments;
     _selectedLocation = arguments?.gender ?? '';
-
-    if (arguments != null) {
-      print('Nombre' + arguments.name + '->' + arguments.id.toString());
-    } else {
-      print('no');
-    }
 
     return SafeArea(
       child: GestureDetector(
@@ -68,61 +65,142 @@ class _GestionUserPageState extends State<GestionUserPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          InputRegister(
-                            defaultValue: arguments.name,
-                            placeholder: 'Nombre',
-                            placeholderSize: 25,
-                            controllerFunct: nick1,
-                          ),
-                          SizedBox(height: 20),
-                          InputRegister(
-                            defaultValue: arguments.email,
-                            placeholder: 'Email',
-                            placeholderSize: 25,
-                            controllerFunct: nick2,
-                          ),
-                          SizedBox(height: 20),
-                          SelectWidget(
-                            selectedLocation: _selectedLocation,
-                            onchangeInput: (newValue) {
-                              setState(() {
-                                print('Genero: ' + newValue);
-                                _selectedLocation = newValue;
-                                arguments.gender = newValue;
-                              });
-                            },
-                          ),
-                          SizedBox(height: 20),
-                          ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    StreamBuilder<User>(
+                      stream: _block.registerStream,
+                      // ignore: missing_return
+                      builder: (contex, snapshot) {
+                        if (_block.respinseApi != 0 &&
+                            _block.respinseApi == 200) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.all(50),
+                            child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                ButtonDrawer(
-                                  iconButton: Icon(Icons.delete),
-                                  labelButton: 'Eliminar',
-                                  onPressed: () {
-                                    // Navigator.pushNamed(context, 'home');
-                                  },
-                                  buttonColor: Colors.red,
-                                  labelColor: Colors.white,
+                                SizedBox(height: 20),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.asset(
+                                    'assets/icons/checking.gif',
+                                    width: 300,
+                                  ),
                                 ),
+                                SizedBox(height: 20),
+                                Text(
+                                  'El usuario fue gestionado correctamente. 😎👌',
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height: 20),
                                 ButtonDrawer(
-                                  iconButton: Icon(Icons.check),
-                                  labelButton: 'Actualizar',
-                                  onPressed: () {},
+                                  iconButton: Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                  ),
+                                  labelButton: 'Volver al listado',
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, 'listusers');
+                                  },
                                   buttonColor: Colors.blue,
                                   labelColor: Colors.white,
-                                ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
+                          );
+
+                          // Navigator.pushNamed(context, 'listusers');
+                          // return Text('');
+                        } else if (_block.respinseApi != 0 &&
+                            _block.respinseApi != 200) {
+                          return Text('Falló');
+                        }
+                        return Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              InputRegister(
+                                defaultValue: arguments.name,
+                                placeholder: 'Nombre',
+                                placeholderSize: 25,
+                                onchangeInput: (String data) {
+                                  setState(() {
+                                    user.name = data;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 20),
+                              InputRegister(
+                                defaultValue: arguments.email,
+                                placeholder: 'Email',
+                                placeholderSize: 25,
+                                onchangeInput: (String data) {
+                                  setState(() {
+                                    user.email = data;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 20),
+                              SelectWidget(
+                                selectedLocation: _selectedLocation,
+                                onchangeInput: (newValue) {
+                                  setState(() {
+                                    _selectedLocation = newValue;
+                                    user.gender = newValue;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 20),
+                              ListTile(
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    ButtonDrawer(
+                                      iconButton: Icon(Icons.delete),
+                                      labelButton: 'Eliminar',
+                                      onPressed: () {
+                                        _block.sendEvent
+                                            .add(DeleteEvent(user: user));
+                                      },
+                                      buttonColor: Colors.red,
+                                      labelColor: Colors.white,
+                                    ),
+                                    ButtonDrawer(
+                                      iconButton: Icon(Icons.check),
+                                      labelButton: 'Actualizar',
+                                      onPressed: () {
+                                        if ((user.email == '' ||
+                                                user.email == null) ||
+                                            (user.name == '' ||
+                                                user.name == null) ||
+                                            (user.gender == '' ||
+                                                user.gender == null)) {
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  'Debe diligenciar la información requerida.',
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 18.0);
+                                        } else {
+                                          _block.sendEvent
+                                              .add(UpdateEvent(user: user));
+                                        }
+                                      },
+                                      buttonColor: Colors.blue,
+                                      labelColor: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

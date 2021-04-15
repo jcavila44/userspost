@@ -84,6 +84,8 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       Padding(padding: EdgeInsets.all(14)),
+                                      Text('Usuario creado con éxito'),
+                                      Padding(padding: EdgeInsets.all(7)),
                                       Text(
                                           'Nombre: ${snapshot?.data?.name ?? ""}'),
                                       Padding(padding: EdgeInsets.all(7)),
@@ -108,6 +110,19 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
+                                      ButtonDrawer(
+                                        iconButton: Icon(
+                                          Icons.arrow_back,
+                                          color: Colors.white,
+                                        ),
+                                        labelButton: 'Volver al listado',
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, 'listusers');
+                                        },
+                                        buttonColor: Colors.blue,
+                                        labelColor: Colors.white,
+                                      )
                                     ],
                                   ),
                                 ));

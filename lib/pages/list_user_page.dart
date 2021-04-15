@@ -215,10 +215,9 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                                           ),
                                                           labelButton: '',
                                                           onPressed: () {
-                                                            var resBody =
-                                                                json.encode(
-                                                                    users.id);
-                                                            print(resBody);
+                                                            //var resBody =
+                                                            //    json.encode(
+                                                            //        users.id);
 
                                                             Navigator.pushNamed(
                                                               context,

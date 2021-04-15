@@ -34,9 +34,6 @@ class _ListPostsPageState extends State<ListPostsPage> {
     super.initState();
     sortAscending = false;
 
-    print(widget.arguments.name);
-    print(widget.arguments.id);
-
     _block.sendEvent.add(GetListEvent(id_user: widget.arguments.id));
   }
 

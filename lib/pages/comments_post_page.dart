@@ -219,8 +219,6 @@ class _CommentsPostsPageState extends State<CommentsPostsPage> {
                               ),
                             );
                           }
-                          print('id de comentario' +
-                              widget.arguments.id.toString());
                           return Text('Esperando datos ...');
                         },
                       ),

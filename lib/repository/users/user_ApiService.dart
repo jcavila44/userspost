@@ -14,8 +14,8 @@ class User_ApiService {
   Future<ApiResponse> getAllUsers(int page) async {
     var listUsers = <User>[];
     var queryParameters = {'page': page.toString()};
-
     var apiResponse = ApiResponse(statusResponse: 0);
+
     var uri = Uri.https(
         Constants.urlAuthority, Constants.urlgetUsers, queryParameters);
     var res = await http.get(uri, headers: {
@@ -24,6 +24,18 @@ class User_ApiService {
     });
 
     var resBody = json.decode(res.body);
+
+    queryParameters = {
+      'page': resBody['meta']['pagination']['pages'].toString()
+    };
+    uri = Uri.https(
+        Constants.urlAuthority, Constants.urlgetUsers, queryParameters);
+    res = await http.get(uri, headers: {
+      HttpHeaders.contentTypeHeader: Constants.contentTypeHeader,
+      HttpHeaders.authorizationHeader: Constants.authorizationheader
+    });
+
+    resBody = json.decode(res.body);
     apiResponse.statusResponse = res.statusCode;
 
     if (apiResponse.statusResponse == 200) {
@@ -34,7 +46,8 @@ class User_ApiService {
       apiResponse.object = listUsers;
 
       // print('prueba ApiService ' + apiResponse.statusResponse.toString());
-      print('total registros ${resBody['meta']['pagination']['pages']}');
+      print('total páginas ${resBody['meta']['pagination']['pages']}');
+      print('página ${resBody['meta']['pagination']['pages']}');
       // print('nombre registro 0 ' + resBody['data'][0]['id'].toString());
       // print('nombre registro 0 ' + resBody['data'][0]['name']);
     }

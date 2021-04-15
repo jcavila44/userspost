@@ -34,7 +34,7 @@ class User_ApiService {
       apiResponse.object = listUsers;
 
       // print('prueba ApiService ' + apiResponse.statusResponse.toString());
-      // print('total registros ${resBody['meta']['pagination']['total']}');
+      print('total registros ${resBody['meta']['pagination']['pages']}');
       // print('nombre registro 0 ' + resBody['data'][0]['id'].toString());
       // print('nombre registro 0 ' + resBody['data'][0]['name']);
     }

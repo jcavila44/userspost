@@ -107,7 +107,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                   SizedBox(height: 20),
                                   InputRegister(
                                     defaultValue: null,
-                                    placeholder: 'Search...',
+                                    placeholder: 'Buscar...',
                                     placeholderSize: 25,
                                     controllerFunct: searchInputController,
                                     onchangeInput: (String data) {

@@ -275,7 +275,25 @@ class _ListUsersPageState extends State<ListUsersPage> {
                               ),
                             );
                           }
-                          return Text('Esperando datos ...');
+
+                          return Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.width / 3),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: CircularProgressIndicatorApp()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
                         },
                       ),
                     ],
@@ -286,6 +304,16 @@ class _ListUsersPageState extends State<ListUsersPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CircularProgressIndicatorApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CircularProgressIndicator(
+      backgroundColor: Colors.red,
+      strokeWidth: 8,
     );
   }
 }

@@ -20,7 +20,7 @@ class _RegisterPostPage extends State<RegisterPostPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
 
-  var data = 'hola onchange';
+  var data = '';
 
   final Post post = Post();
 
@@ -55,7 +55,7 @@ class _RegisterPostPage extends State<RegisterPostPage> {
                 ),
                 onPressed: () => _scaffoldKey.currentState.openDrawer(),
               ),
-              title: Text('Registro de usuarios'),
+              title: Text('Registro de Post'),
               centerTitle: true,
             ),
             body: SafeArea(

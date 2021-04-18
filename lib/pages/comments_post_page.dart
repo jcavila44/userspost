@@ -52,7 +52,7 @@ class _CommentsPostsPageState extends State<CommentsPostsPage> {
 
   @override
   Widget build(BuildContext context) {
-    //var keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
+    var keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
 
     return SafeArea(
       child: GestureDetector(
@@ -61,21 +61,21 @@ class _CommentsPostsPageState extends State<CommentsPostsPage> {
         },
         child: Container(
           child: Scaffold(
-            // floatingActionButton: keyboardIsOpened
-            //     ? null
-            //     : CupertinoButton(
-            //         onPressed: () {
-            //           // Navigator.pushNamed(context, 'registerpost');
-            //           Navigator.pushNamed(
-            //             context,
-            //             'registerpost',
-            //             arguments: widget.arguments,
-            //           );
-            //         },
-            //         color: Colors.blue,
-            //         child: Text('Volver al listado'),
-            //       ),
-            // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: keyboardIsOpened
+                ? null
+                : CupertinoButton(
+                    onPressed: () {
+                      // Navigator.pushNamed(context, 'registerpost');
+                      // Navigator.pushNamed(
+                      //   context,
+                      //   'registerpost',
+                      //   arguments: widget.arguments,
+                      // );
+                    },
+                    color: Colors.grey,
+                    child: Text('Volver al listado'),
+                  ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             bottomNavigationBar: BottomAppBar(
               color: Colors.white,
             ),
@@ -219,7 +219,24 @@ class _CommentsPostsPageState extends State<CommentsPostsPage> {
                               ),
                             );
                           }
-                          return Text('Esperando datos ...');
+                          return Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.width / 3),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: CircularProgressIndicatorApp()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
                         },
                       ),
                     ],
@@ -230,6 +247,16 @@ class _CommentsPostsPageState extends State<CommentsPostsPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CircularProgressIndicatorApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CircularProgressIndicator(
+      backgroundColor: Colors.red,
+      strokeWidth: 8,
     );
   }
 }

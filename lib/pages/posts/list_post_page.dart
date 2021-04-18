@@ -1,35 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:userspost/blocs/user_list_bloc.dart';
+import 'package:userspost/blocs/post_list_bloc.dart';
+import 'package:userspost/models/post/post_model.dart';
 import 'package:userspost/models/user/user_model.dart';
-import 'package:userspost/pages/list_post_page.dart';
+import 'package:userspost/pages/comments/comments_post_page.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
-import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
-class ListUsersPage extends StatefulWidget {
-  ListUsersPage({Key key}) : super(key: key);
-  static final routeName = 'listusers';
+class ListPostsPage extends StatefulWidget {
+  final User arguments;
+
+  ListPostsPage({Key key, this.arguments}) : super(key: key);
+  static final routeName = 'listposts';
 
   @override
-  _ListUsersPageState createState() => _ListUsersPageState();
+  _ListPostsPageState createState() => _ListPostsPageState();
 }
 
-class _ListUsersPageState extends State<ListUsersPage> {
+class _ListPostsPageState extends State<ListPostsPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final searchInputController = TextEditingController();
-  bool sortAscending;
-  int searchAfter;
 
-  List<User> users;
-  final UserListBloc _block = UserListBloc();
+  // final Post arguments = ModalRoute.of(context).settings.arguments;
+
+  bool sortAscending;
+
+  List<Post> posts;
+  final PostListBloc _block = PostListBloc();
 
   @override
   void initState() {
     super.initState();
     sortAscending = false;
-    _block.sendEvent.add(GetListEvent());
+
+    _block.sendEvent.add(GetListEvent(id_user: widget.arguments.id));
   }
 
   @override
@@ -41,9 +46,9 @@ class _ListUsersPageState extends State<ListUsersPage> {
   void ordenarColumna(int columnIndex, bool ordenar) {
     if (columnIndex == 0) {
       if (ordenar) {
-        _block.listUsers.sort((a, b) => a.name.compareTo(b.name));
+        _block.listPosts.sort((a, b) => a.title.compareTo(b.title));
       } else {
-        _block.listUsers.sort((a, b) => b.name.compareTo(a.name));
+        _block.listPosts.sort((a, b) => b.title.compareTo(a.title));
       }
     }
   }
@@ -51,6 +56,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
   @override
   Widget build(BuildContext context) {
     var keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
+
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -62,10 +68,15 @@ class _ListUsersPageState extends State<ListUsersPage> {
                 ? null
                 : CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'registeruser');
+                      // Navigator.pushNamed(context, 'registerpost');
+                      Navigator.pushNamed(
+                        context,
+                        'registerpost',
+                        arguments: widget.arguments,
+                      );
                     },
                     color: Colors.blue,
-                    child: Text('Añadir Usuario'),
+                    child: Text('Añadir Post'),
                   ),
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             bottomNavigationBar: BottomAppBar(
@@ -82,7 +93,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
                 ),
                 onPressed: () => _scaffoldKey.currentState.openDrawer(),
               ),
-              title: Text('Lista de usuarios'),
+              title: Text('Lista de posts'),
               centerTitle: true,
             ),
             body: SingleChildScrollView(
@@ -93,7 +104,7 @@ class _ListUsersPageState extends State<ListUsersPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      StreamBuilder<List<User>>(
+                      StreamBuilder<List<Post>>(
                         stream: _block.listStream,
                         builder: (contex, snapshot) {
                           if (snapshot.hasData) {
@@ -103,24 +114,11 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(height: 20),
-                                  InputRegister(
-                                    defaultValue: null,
-                                    placeholder: 'Buscar...',
-                                    placeholderSize: 25,
-                                    controllerFunct: searchInputController,
-                                    onchangeInput: (String data) {
-                                      setState(() {
-                                        if (data.length > 2) {
-                                          searchAfter = data.length;
-                                          _block.sendEvent.add(
-                                              GetListEventSearch(search: data));
-                                        } else if (data.isEmpty &&
-                                            searchAfter == 3) {
-                                          _block.sendEvent.add(GetListEvent());
-                                        }
-                                      });
-                                    },
-                                  ),
+                                  // InputRegister(
+                                  //   placeholder: 'Search...',
+                                  //   placeholderSize: 25,
+                                  //   controllerFunct: searchInputController,
+                                  // ),
                                   SizedBox(height: 20),
                                   Container(
                                     height: 450,
@@ -139,7 +137,12 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                               sortAscending, //Orientacion de la flecha
                                           columns: [
                                             DataColumn(
-                                              label: Text('Nombre'),
+                                              label: Text('Id'),
+                                              numeric: false,
+                                              tooltip: 'Id',
+                                            ),
+                                            DataColumn(
+                                              label: Text('Titulo'),
                                               numeric: false,
                                               onSort: (columnIndex, ascending) {
                                                 setState(
@@ -153,81 +156,25 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                               },
                                             ),
                                             DataColumn(
-                                              label: Text('Email'),
+                                              label: Text('Ver Comentarios'),
                                               numeric: false,
-                                              tooltip: 'Email',
-                                            ),
-                                            DataColumn(
-                                              label: Text('Genero'),
-                                              numeric: false,
-                                              tooltip: 'Genero',
-                                            ),
-                                            DataColumn(
-                                              label: Text('Estado'),
-                                              numeric: false,
-                                              tooltip: 'Estado',
-                                            ),
-                                            DataColumn(
-                                              label: Text('Gestion'),
-                                              numeric: false,
-                                              tooltip: 'Gestion',
-                                            ),
-                                            DataColumn(
-                                              label: Text('VerPosts'),
-                                              numeric: false,
-                                              tooltip: 'VerPosts',
+                                              tooltip: 'Ver Comentarios',
                                             ),
                                           ],
                                           rows: snapshot.data
                                               .map(
-                                                (users) => DataRow(
+                                                (posts) => DataRow(
                                                   cells: [
                                                     DataCell(
                                                       Text(
-                                                        users.name,
+                                                        posts.id.toString(),
                                                       ),
                                                     ),
                                                     DataCell(
-                                                      Text(
-                                                        users.gender,
-                                                      ),
-                                                    ),
-                                                    DataCell(
-                                                      Text(
-                                                        users.status,
-                                                      ),
-                                                    ),
-                                                    DataCell(
-                                                      Text(
-                                                        users.email,
-                                                      ),
-                                                    ),
-                                                    DataCell(
-                                                      Container(
-                                                        padding:
-                                                            EdgeInsets.all(3),
-                                                        child: ButtonDrawer(
-                                                          iconButton: Icon(
-                                                            Icons.settings,
-                                                            color: Colors.white,
+                                                      Text(posts.title
+                                                          // posts.title
+                                                          //     .substring(1, 40),
                                                           ),
-                                                          labelButton: '',
-                                                          onPressed: () {
-                                                            //var resBody =
-                                                            //    json.encode(
-                                                            //        users.id);
-
-                                                            Navigator.pushNamed(
-                                                              context,
-                                                              'manageuser',
-                                                              arguments: users,
-                                                            );
-                                                          },
-                                                          buttonColor:
-                                                              Colors.blue,
-                                                          labelColor: null,
-                                                        ),
-                                                      ),
                                                     ),
                                                     DataCell(
                                                       Container(
@@ -240,20 +187,14 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                                           ),
                                                           labelButton: '',
                                                           onPressed: () {
-                                                            // Navigator.pushNamed(
-                                                            //   context,
-                                                            //   'listposts',
-                                                            //   arguments: users,
-                                                            // );
-
                                                             Navigator.of(
                                                                     context)
                                                                 .push(
                                                               CupertinoPageRoute(
                                                                 builder: (context) =>
-                                                                    ListPostsPage(
+                                                                    CommentsPostsPage(
                                                                         arguments:
-                                                                            users),
+                                                                            posts),
                                                               ),
                                                             );
                                                           },
@@ -275,7 +216,6 @@ class _ListUsersPageState extends State<ListUsersPage> {
                               ),
                             );
                           }
-
                           return Form(
                             key: _formKey,
                             child: Column(

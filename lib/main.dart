@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:userspost/pages/comments_post_page.dart';
-import 'package:userspost/pages/manage_user_page.dart';
-import 'package:userspost/pages/register_post_page.dart';
-import 'package:userspost/pages/register_user_page.dart';
+import 'package:userspost/pages/users/list_user_page.dart';
+import 'package:userspost/pages/users/register_user_page.dart';
+import 'package:userspost/pages/users/manage_user_page.dart';
+import 'package:userspost/pages/posts/list_post_page.dart';
+import 'package:userspost/pages/posts/register_post_page.dart';
+import 'package:userspost/pages/comments/comments_post_page.dart';
 import 'package:userspost/widgets/splash_widget.dart';
-import 'package:userspost/pages/list_user_page.dart';
-import 'package:userspost/pages/list_post_page.dart';
-
 import 'pages/home_page.dart';
 
 void main() {
@@ -23,11 +22,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: SplashWidget(),
       routes: {
-        HomePage.routeName: (BuildContext context) => HomePage(),
         SplashWidget.routeName: (BuildContext context) => SplashWidget(),
+        HomePage.routeName: (BuildContext context) => HomePage(),
+        ListUsersPage.routeName: (BuildContext context) => ListUsersPage(),
         RegisterUserPage.routeName: (BuildContext context) =>
             RegisterUserPage(),
-        ListUsersPage.routeName: (BuildContext context) => ListUsersPage(),
         GestionUserPage.routeName: (BuildContext context) => GestionUserPage(),
         ListPostsPage.routeName: (BuildContext context) => ListPostsPage(),
         RegisterPostPage.routeName: (BuildContext context) =>

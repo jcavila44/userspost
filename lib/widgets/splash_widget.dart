@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userspost/pages/home_page.dart';
+import 'package:userspost/widgets/circular_progress.dart';
 
 class SplashWidget extends StatefulWidget {
   static final routeName = 'splash';
@@ -26,9 +27,7 @@ class _SplashWidgetState extends State<SplashWidget> {
     return Container(
       child: Scaffold(
         body: Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-          ),
+          child: CircularProgress(),
         ),
       ),
     );

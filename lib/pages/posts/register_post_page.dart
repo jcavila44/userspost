@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:userspost/blocs/register_post_bloc.dart';
 import 'package:userspost/models/post/post_model.dart';
 import 'package:userspost/models/user/user_model.dart';
-import 'package:userspost/pages/list_post_page.dart';
+import 'package:userspost/pages/posts/list_post_page.dart';
 import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';

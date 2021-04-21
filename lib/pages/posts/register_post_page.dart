@@ -71,38 +71,122 @@ class _RegisterPostPage extends State<RegisterPostPage> {
                         builder: (contex, snapshot) {
                           if (snapshot?.data != null) {
                             return Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              child: Card(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Padding(padding: EdgeInsets.all(14)),
-                                    Text('Post: ${arguments.name}'),
-                                    Padding(padding: EdgeInsets.all(14)),
-                                    Text(
-                                        'Titulo: ${snapshot?.data?.title ?? ""}'),
-                                    Padding(padding: EdgeInsets.all(7)),
-                                    Text('body: ${snapshot?.data?.body ?? ""}'),
-                                    Padding(padding: EdgeInsets.all(7)),
-                                    MaterialButton(
-                                      minWidth: 200.0,
-                                      height: 40.0,
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          'registerpost',
-                                          arguments: arguments,
-                                        );
-                                      },
-                                      color: Colors.lightBlue,
-                                      child: Text('Crear nuevo post',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.all(20),
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(height: 20),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.asset(
+                                      'assets/icons/checking.gif',
+                                      width: 300,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    'Post creado correctamente',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '\n • Dueño: ${arguments.name} \n • Titulo: ${snapshot?.data?.title ?? ""} \n • Cuerpo: ${snapshot?.data?.body ?? ""}',
+                                    style: TextStyle(
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                  SizedBox(height: 20),
+                                  ListTile(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: ButtonDrawer(
+                                            iconButton: Icon(
+                                              Icons.arrow_back,
+                                              color: Colors.white,
+                                            ),
+                                            labelButton: 'Atras',
+                                            onPressed: () {
+                                              // Navigator.of(context).pop(true);
+                                              // Navigator.pushNamed(
+                                              //     context, 'listusers');
+                                              Navigator.of(context).push(
+                                                CupertinoPageRoute(
+                                                  builder: (context) =>
+                                                      ListPostsPage(
+                                                          arguments: arguments),
+                                                ),
+                                              );
+                                            },
+                                            buttonColor: Colors.grey,
+                                            labelColor: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Expanded(
+                                          child: ButtonDrawer(
+                                            iconButton: Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                            ),
+                                            labelButton: 'Nuevo',
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                context,
+                                                'registerpost',
+                                                arguments: arguments,
+                                              );
+                                            },
+                                            buttonColor: Colors.blue,
+                                            labelColor: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
                             );
+                            // return Container(
+                            //   width: MediaQuery.of(context).size.width * 0.6,
+                            //   child: Card(
+                            //     child: Column(
+                            //       mainAxisSize: MainAxisSize.min,
+                            //       children: <Widget>[
+                            //         Padding(padding: EdgeInsets.all(14)),
+                            //         Text('Post: ${arguments.name}'),
+                            //         Padding(padding: EdgeInsets.all(14)),
+                            //         Text(
+                            //             'Titulo: ${snapshot?.data?.title ?? ""}'),
+                            //         Padding(padding: EdgeInsets.all(7)),
+                            //         Text('body: ${snapshot?.data?.body ?? ""}'),
+                            //         Padding(padding: EdgeInsets.all(7)),
+                            //         MaterialButton(
+                            //           minWidth: 200.0,
+                            //           height: 40.0,
+                            //           onPressed: () {
+                            //             Navigator.pushNamed(
+                            //               context,
+                            //               'registerpost',
+                            //               arguments: arguments,
+                            //             );
+                            //           },
+                            //           color: Colors.lightBlue,
+                            //           child: Text('Crear nuevo post',
+                            //               style:
+                            //                   TextStyle(color: Colors.white)),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // );
                           }
                           return Form(
                             key: _formKey,
@@ -141,48 +225,54 @@ class _RegisterPostPage extends State<RegisterPostPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
-                                      ButtonDrawer(
-                                        iconButton: Icon(Icons.arrow_back),
-                                        labelButton: 'Atras',
-                                        onPressed: () {
-                                          // Navigator.pushNamed(
-                                          //     context, 'listusers');
-                                          Navigator.of(context).push(
-                                            CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  ListPostsPage(
-                                                      arguments: arguments),
-                                            ),
-                                          );
-                                        },
-                                        buttonColor: Colors.grey,
-                                        labelColor: Colors.white,
+                                      Expanded(
+                                        child: ButtonDrawer(
+                                          iconButton: Icon(Icons.arrow_back),
+                                          labelButton: 'Atras',
+                                          onPressed: () {
+                                            // Navigator.pushNamed(
+                                            //     context, 'listusers');
+                                            Navigator.of(context).push(
+                                              CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    ListPostsPage(
+                                                        arguments: arguments),
+                                              ),
+                                            );
+                                          },
+                                          buttonColor: Colors.grey,
+                                          labelColor: Colors.white,
+                                        ),
                                       ),
-                                      ButtonDrawer(
-                                        iconButton: Icon(Icons.check),
-                                        labelButton: 'Guardar',
-                                        onPressed: () {
-                                          if ((post.title == '' ||
-                                                  post.title == null) ||
-                                              (post.body == '' ||
-                                                  post.body == null)) {
-                                            Fluttertoast.showToast(
-                                                msg:
-                                                    'Debe diligenciar la información requerida.',
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.CENTER,
-                                                timeInSecForIosWeb: 1,
-                                                backgroundColor: Colors.red,
-                                                textColor: Colors.white,
-                                                fontSize: 18.0);
-                                          } else {
-                                            post.user_id = arguments.id;
-                                            _block.sendEvent.add(
-                                                RegisterEvent(posts: post));
-                                          }
-                                        },
-                                        buttonColor: Colors.blue,
-                                        labelColor: Colors.white,
+                                      SizedBox(width: 20),
+                                      Expanded(
+                                        child: ButtonDrawer(
+                                          iconButton: Icon(Icons.check),
+                                          labelButton: 'Guardar',
+                                          onPressed: () {
+                                            if ((post.title == '' ||
+                                                    post.title == null) ||
+                                                (post.body == '' ||
+                                                    post.body == null)) {
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      'Debe diligenciar la información requerida.',
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 18.0);
+                                            } else {
+                                              post.user_id = arguments.id;
+                                              _block.sendEvent.add(
+                                                  RegisterEvent(posts: post));
+                                            }
+                                          },
+                                          buttonColor: Colors.blue,
+                                          labelColor: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),

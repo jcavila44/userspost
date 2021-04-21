@@ -157,42 +157,49 @@ class _GestionUserPageState extends State<GestionUserPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
-                                    ButtonDrawer(
-                                      iconButton: Icon(Icons.delete),
-                                      labelButton: 'Eliminar',
-                                      onPressed: () {
-                                        _block.sendEvent
-                                            .add(DeleteEvent(user: user));
-                                      },
-                                      buttonColor: Colors.red,
-                                      labelColor: Colors.white,
-                                    ),
-                                    ButtonDrawer(
-                                      iconButton: Icon(Icons.check),
-                                      labelButton: 'Actualizar',
-                                      onPressed: () {
-                                        if ((user.email == '' ||
-                                                user.email == null) ||
-                                            (user.name == '' ||
-                                                user.name == null) ||
-                                            (user.gender == '' ||
-                                                user.gender == null)) {
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  'Debe diligenciar la información requerida.',
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.CENTER,
-                                              timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.red,
-                                              textColor: Colors.white,
-                                              fontSize: 18.0);
-                                        } else {
+                                    Expanded(
+                                      child: ButtonDrawer(
+                                        iconButton: Icon(Icons.delete),
+                                        labelButton: 'Eliminar',
+                                        onPressed: () {
                                           _block.sendEvent
-                                              .add(UpdateEvent(user: user));
-                                        }
-                                      },
-                                      buttonColor: Colors.blue,
-                                      labelColor: Colors.white,
+                                              .add(DeleteEvent(user: user));
+                                        },
+                                        buttonColor: Colors.red,
+                                        labelColor: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Expanded(
+                                      child: ButtonDrawer(
+                                        iconButton: Icon(Icons.check),
+                                        labelButton: 'Actualizar',
+                                        onPressed: () {
+                                          if ((user.email == '' ||
+                                                  user.email == null) ||
+                                              (user.name == '' ||
+                                                  user.name == null) ||
+                                              (user.gender == '' ||
+                                                  user.gender == null)) {
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    'Debe diligenciar la información requerida.',
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 18.0);
+                                          } else {
+                                            _block.sendEvent
+                                                .add(UpdateEvent(user: user));
+                                          }
+                                        },
+                                        buttonColor: Colors.blue,
+                                        labelColor: Colors.white,
+                                      ),
                                     ),
                                   ],
                                 ),

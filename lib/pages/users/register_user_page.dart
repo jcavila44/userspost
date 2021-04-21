@@ -75,57 +75,168 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                             //     backgroundColor: Colors.blue,
                             //     textColor: Colors.white,
                             //     fontSize: 18.0);
+                            //
                             return Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                // height: 200,
-                                child: Card(
-                                  // color: Colors.black,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Padding(padding: EdgeInsets.all(14)),
-                                      Text('Usuario creado con éxito'),
-                                      Padding(padding: EdgeInsets.all(7)),
-                                      Text(
-                                          'Nombre: ${snapshot?.data?.name ?? ""}'),
-                                      Padding(padding: EdgeInsets.all(7)),
-                                      Text(
-                                          'Correo: ${snapshot?.data?.email ?? ""}'),
-                                      Padding(padding: EdgeInsets.all(7)),
-                                      Text(
-                                          'Genero: ${snapshot?.data?.gender ?? ""}'),
-                                      Padding(padding: EdgeInsets.all(7)),
-                                      Text(
-                                          'Estado: ${snapshot?.data?.status ?? ""}'),
-                                      Padding(padding: EdgeInsets.all(7)),
-                                      MaterialButton(
-                                        minWidth: 200.0,
-                                        height: 40.0,
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, 'registeruser');
-                                        },
-                                        color: Colors.lightBlue,
-                                        child: Text('Crear nuevo usuario',
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      ),
-                                      ButtonDrawer(
-                                        iconButton: Icon(
-                                          Icons.arrow_back,
-                                          color: Colors.white,
-                                        ),
-                                        labelButton: 'Volver al listado',
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, 'listusers');
-                                        },
-                                        buttonColor: Colors.blue,
-                                        labelColor: Colors.white,
-                                      )
-                                    ],
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.all(20),
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(height: 20),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.asset(
+                                      'assets/icons/checking.gif',
+                                      width: 300,
+                                    ),
                                   ),
-                                ));
+                                  SizedBox(height: 20),
+                                  Text(
+                                    'Usuario creado correctamente',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '\n • Nombre:  ${snapshot?.data?.name ?? ""} \n • Email: ${snapshot?.data?.email ?? ""} \n • Genero: ${snapshot?.data?.gender ?? ""} \n • Estado: ${snapshot?.data?.status ?? ""}',
+                                    style: TextStyle(
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                  SizedBox(height: 20),
+                                  ListTile(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: ButtonDrawer(
+                                            iconButton: Icon(
+                                              Icons.arrow_back,
+                                              color: Colors.white,
+                                            ),
+                                            labelButton: 'Atras',
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                  context, 'listusers');
+                                            },
+                                            buttonColor: Colors.grey,
+                                            labelColor: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Expanded(
+                                          child: ButtonDrawer(
+                                            iconButton: Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                            ),
+                                            labelButton: 'Nuevo',
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                  context, 'registeruser');
+                                            },
+                                            buttonColor: Colors.blue,
+                                            labelColor: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                            // return Container(
+                            //   width: MediaQuery.of(context).size.width * 0.6,
+                            //   // height: 200,
+                            //   child: Card(
+                            //     // color: Colors.black,
+                            //     child: Column(
+                            //       mainAxisSize: MainAxisSize.min,
+                            //       children: <Widget>[
+                            //         Padding(padding: EdgeInsets.all(14)),
+                            //         Text('Usuario creado con éxito'),
+                            //         Padding(padding: EdgeInsets.all(7)),
+                            //         Text(
+                            //             'Nombre: ${snapshot?.data?.name ?? ""}'),
+                            //         Padding(padding: EdgeInsets.all(7)),
+                            //         Text(
+                            //             'Correo: ${snapshot?.data?.email ?? ""}'),
+                            //         Padding(padding: EdgeInsets.all(7)),
+                            //         Text(
+                            //             'Genero: ${snapshot?.data?.gender ?? ""}'),
+                            //         Padding(padding: EdgeInsets.all(7)),
+                            //         Text(
+                            //             'Estado: ${snapshot?.data?.status ?? ""}'),
+                            //         Padding(padding: EdgeInsets.all(7)),
+                            //         // Expanded(
+                            //         //   child: MaterialButton(
+                            //         //     minWidth: 200.0,
+                            //         //     height: 40.0,
+                            //         //     onPressed: () {
+                            //         //       Navigator.pushNamed(
+                            //         //           context, 'registeruser');
+                            //         //     },
+                            //         //     color: Colors.lightBlue,
+                            //         //     child: Text(
+                            //         //       'Crear nuevo usuario',
+                            //         //       style:
+                            //         //           TextStyle(color: Colors.white),
+                            //         //     ),
+                            //         //   ),
+                            //         // ),
+                            //         // SizedBox(width: 20),
+                            //         // Expanded(
+                            //         //   child: ButtonDrawer(
+                            //         //     iconButton: Icon(
+                            //         //       Icons.arrow_back,
+                            //         //       color: Colors.white,
+                            //         //     ),
+                            //         //     labelButton: 'Volver al listado',
+                            //         //     onPressed: () {
+                            //         //       Navigator.pushNamed(
+                            //         //           context, 'listusers');
+                            //         //     },
+                            //         //     buttonColor: Colors.blue,
+                            //         //     labelColor: Colors.white,
+                            //         //   ),
+                            //         // ),
+                            //         ListTile(
+                            //           title: Row(
+                            //             mainAxisAlignment:
+                            //                 MainAxisAlignment.spaceEvenly,
+                            //             children: <Widget>[
+                            //               Expanded(
+                            //                 child: ButtonDrawer(
+                            //                   iconButton: Icon(Icons.delete),
+                            //                   labelButton: 'Eliminar',
+                            //                   onPressed: () {},
+                            //                   buttonColor: Colors.red,
+                            //                   labelColor: Colors.white,
+                            //                 ),
+                            //               ),
+                            //               SizedBox(
+                            //                 width: 20,
+                            //               ),
+                            //               Expanded(
+                            //                 child: ButtonDrawer(
+                            //                   iconButton: Icon(Icons.check),
+                            //                   labelButton: 'Actualizar',
+                            //                   onPressed: () {},
+                            //                   buttonColor: Colors.blue,
+                            //                   labelColor: Colors.white,
+                            //                 ),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         )
+                            //       ],
+                            //     ),
+                            //   ),
+                            // );
                           }
                           return Form(
                             key: _formKey,
@@ -167,42 +278,48 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
-                                      ButtonDrawer(
-                                        iconButton: Icon(Icons.arrow_back),
-                                        labelButton: 'Atras',
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, 'listusers');
-                                        },
-                                        buttonColor: Colors.grey,
-                                        labelColor: Colors.white,
+                                      Expanded(
+                                        child: ButtonDrawer(
+                                          iconButton: Icon(Icons.arrow_back),
+                                          labelButton: 'Atras',
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, 'listusers');
+                                          },
+                                          buttonColor: Colors.grey,
+                                          labelColor: Colors.white,
+                                        ),
                                       ),
-                                      ButtonDrawer(
-                                        iconButton: Icon(Icons.check),
-                                        labelButton: 'Guardar',
-                                        onPressed: () {
-                                          if ((user.email == '' ||
-                                                  user.email == null) ||
-                                              (user.name == '' ||
-                                                  user.name == null) ||
-                                              (user.gender == '' ||
-                                                  user.gender == null)) {
-                                            Fluttertoast.showToast(
-                                                msg:
-                                                    'Debe diligenciar la información requerida.',
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.CENTER,
-                                                timeInSecForIosWeb: 1,
-                                                backgroundColor: Colors.red,
-                                                textColor: Colors.white,
-                                                fontSize: 18.0);
-                                          } else {
-                                            _block.sendEvent
-                                                .add(RegisterEvent(user: user));
-                                          }
-                                        },
-                                        buttonColor: Colors.blue,
-                                        labelColor: Colors.white,
+                                      SizedBox(width: 20),
+                                      Expanded(
+                                        child: ButtonDrawer(
+                                          iconButton: Icon(Icons.check),
+                                          labelButton: 'Guardar',
+                                          onPressed: () {
+                                            if ((user.email == '' ||
+                                                    user.email == null) ||
+                                                (user.name == '' ||
+                                                    user.name == null) ||
+                                                (user.gender == '' ||
+                                                    user.gender == null)) {
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      'Debe diligenciar la información requerida.',
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 18.0);
+                                            } else {
+                                              _block.sendEvent.add(
+                                                  RegisterEvent(user: user));
+                                            }
+                                          },
+                                          buttonColor: Colors.blue,
+                                          labelColor: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),

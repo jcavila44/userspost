@@ -159,14 +159,9 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                               },
                                             ),
                                             DataColumn(
-                                              label: Text('Email'),
+                                              label: Text('Género'),
                                               numeric: false,
-                                              tooltip: 'Email',
-                                            ),
-                                            DataColumn(
-                                              label: Text('Genero'),
-                                              numeric: false,
-                                              tooltip: 'Genero',
+                                              tooltip: 'Género',
                                             ),
                                             DataColumn(
                                               label: Text('Estado'),
@@ -201,11 +196,6 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                                     DataCell(
                                                       Text(
                                                         users.status,
-                                                      ),
-                                                    ),
-                                                    DataCell(
-                                                      Text(
-                                                        users.email,
                                                       ),
                                                     ),
                                                     DataCell(

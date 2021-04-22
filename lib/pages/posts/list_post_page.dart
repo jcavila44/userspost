@@ -196,10 +196,11 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                                             EdgeInsets.all(3),
                                                         child: ButtonDrawer(
                                                           iconButton: Icon(
-                                                            Icons.search,
+                                                            Icons
+                                                                .remove_red_eye_outlined,
                                                             color: Colors.white,
                                                           ),
-                                                          labelButton: 'Ver',
+                                                          labelButton: '',
                                                           onPressed: () {
                                                             showDialog(
                                                                 builder: (context) => AlertDialog(

@@ -6,7 +6,8 @@ class CircularProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+        //valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+        backgroundColor: Colors.red,
         strokeWidth: 8,
       ),
     );

@@ -52,11 +52,11 @@ class _GestionUserPageState extends State<GestionUserPage> {
                 ? null
                 : CupertinoButton(
                     onPressed: () {
-                      Navigator.of(context).push(
-                        CupertinoPageRoute(
-                          builder: (context) => ListUsersPage(),
-                        ),
-                      );
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.landscapeLeft,
+                        DeviceOrientation.landscapeRight,
+                      ]);
+                      Navigator.pushNamed(context, 'listusers');
                     },
                     color: Colors.grey,
                     child: Text('Volver al listado'),

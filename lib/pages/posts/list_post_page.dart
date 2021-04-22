@@ -67,21 +67,38 @@ class _ListPostsPageState extends State<ListPostsPage> {
           child: Scaffold(
             floatingActionButton: keyboardIsOpened
                 ? null
-                : CupertinoButton(
-                    onPressed: () {
-                      // Navigator.pushNamed(context, 'registerpost');
-                      SystemChrome.setPreferredOrientations([
-                        DeviceOrientation.portraitDown,
-                        DeviceOrientation.portraitUp,
-                      ]);
-                      Navigator.pushNamed(
-                        context,
-                        'registerpost',
-                        arguments: widget.arguments,
-                      );
-                    },
-                    color: Colors.blue,
-                    child: Text('Añadir Post'),
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      CupertinoButton(
+                        onPressed: () {
+                          SystemChrome.setPreferredOrientations([
+                            DeviceOrientation.landscapeLeft,
+                            DeviceOrientation.landscapeRight,
+                          ]);
+                          Navigator.pushNamed(context, 'listusers');
+                        },
+                        color: Colors.grey,
+                        child: Text('Atras'),
+                      ),
+                      SizedBox(width: 20),
+                      CupertinoButton(
+                        onPressed: () {
+                          // Navigator.pushNamed(context, 'registerpost');
+                          SystemChrome.setPreferredOrientations([
+                            DeviceOrientation.portraitDown,
+                            DeviceOrientation.portraitUp,
+                          ]);
+                          Navigator.pushNamed(
+                            context,
+                            'registerpost',
+                            arguments: widget.arguments,
+                          );
+                        },
+                        color: Colors.blue,
+                        child: Text('Añadir Post'),
+                      ),
+                    ],
                   ),
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             bottomNavigationBar: BottomAppBar(

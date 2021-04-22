@@ -9,6 +9,8 @@ import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/selectinput_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
+import 'list_user_page.dart';
+
 class GestionUserPage extends StatefulWidget {
   GestionUserPage({Key key}) : super(key: key);
   static final routeName = 'manageuser';
@@ -34,6 +36,7 @@ class _GestionUserPageState extends State<GestionUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    var keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     final User arguments = ModalRoute.of(context).settings.arguments;
     user = arguments;
     _selectedLocation = arguments?.gender ?? '';
@@ -45,6 +48,23 @@ class _GestionUserPageState extends State<GestionUserPage> {
         },
         child: Container(
           child: Scaffold(
+            floatingActionButton: keyboardIsOpened
+                ? null
+                : CupertinoButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        CupertinoPageRoute(
+                          builder: (context) => ListUsersPage(),
+                        ),
+                      );
+                    },
+                    color: Colors.grey,
+                    child: Text('Volver al listado'),
+                  ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            bottomNavigationBar: BottomAppBar(
+              color: Colors.white,
+            ),
             key: _scaffoldKey,
             // El Drawer es el menú izquierdo
             drawer: SideBarWidget(),

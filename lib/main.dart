@@ -10,6 +10,10 @@ import 'package:userspost/widgets/splash_widget.dart';
 import 'pages/home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(MyApp());
 }
 

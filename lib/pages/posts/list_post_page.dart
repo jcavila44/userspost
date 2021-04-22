@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:userspost/blocs/post_list_bloc.dart';
 import 'package:userspost/models/post/post_model.dart';
 import 'package:userspost/models/user/user_model.dart';
@@ -69,6 +70,10 @@ class _ListPostsPageState extends State<ListPostsPage> {
                 : CupertinoButton(
                     onPressed: () {
                       // Navigator.pushNamed(context, 'registerpost');
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.portraitDown,
+                        DeviceOrientation.portraitUp,
+                      ]);
                       Navigator.pushNamed(
                         context,
                         'registerpost',
@@ -114,11 +119,6 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(height: 20),
-                                  // InputRegister(
-                                  //   placeholder: 'Search...',
-                                  //   placeholderSize: 25,
-                                  //   controllerFunct: searchInputController,
-                                  // ),
                                   SizedBox(height: 20),
                                   Container(
                                     height: 450,
@@ -143,6 +143,20 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                             ),
                                             DataColumn(
                                               label: Text('Titulo'),
+                                              numeric: false,
+                                              onSort: (columnIndex, ascending) {
+                                                setState(
+                                                  () {
+                                                    sortAscending =
+                                                        !sortAscending;
+                                                  },
+                                                );
+                                                ordenarColumna(
+                                                    columnIndex, ascending);
+                                              },
+                                            ),
+                                            DataColumn(
+                                              label: Text('Descripción'),
                                               numeric: false,
                                               onSort: (columnIndex, ascending) {
                                                 setState(
@@ -185,16 +199,61 @@ class _ListPostsPageState extends State<ListPostsPage> {
                                                             Icons.search,
                                                             color: Colors.white,
                                                           ),
+                                                          labelButton: 'Ver',
+                                                          onPressed: () {
+                                                            showDialog(
+                                                                builder: (context) => AlertDialog(
+                                                                    content: Text(
+                                                                        posts
+                                                                            .body,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                22),
+                                                                        textAlign:
+                                                                            TextAlign
+                                                                                .justify)),
+                                                                context:
+                                                                    context);
+                                                          },
+                                                          buttonColor:
+                                                              Colors.blue,
+                                                          labelColor: null,
+                                                        ),
+                                                      ),
+
+                                                      // Text(posts.body
+                                                      //     // posts.title
+                                                      //     //     .substring(1, 40),
+                                                      //     ),
+                                                    ),
+                                                    DataCell(
+                                                      Container(
+                                                        padding:
+                                                            EdgeInsets.all(3),
+                                                        child: ButtonDrawer(
+                                                          iconButton: Icon(
+                                                            Icons.search,
+                                                            color: Colors.white,
+                                                          ),
                                                           labelButton: '',
                                                           onPressed: () {
+                                                            SystemChrome
+                                                                .setPreferredOrientations([
+                                                              DeviceOrientation
+                                                                  .landscapeLeft,
+                                                              DeviceOrientation
+                                                                  .landscapeRight,
+                                                            ]);
                                                             Navigator.of(
                                                                     context)
                                                                 .push(
                                                               CupertinoPageRoute(
-                                                                builder: (context) =>
-                                                                    CommentsPostsPage(
-                                                                        arguments:
-                                                                            posts),
+                                                                builder: (context) => CommentsPostsPage(
+                                                                    arguments:
+                                                                        posts,
+                                                                    argumentsUser:
+                                                                        widget
+                                                                            .arguments),
                                                               ),
                                                             );
                                                           },

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:userspost/blocs/update_user_bloc.dart';
 import 'package:userspost/models/user/user_model.dart';
@@ -100,6 +101,10 @@ class _GestionUserPageState extends State<GestionUserPage> {
                                   ),
                                   labelButton: 'Volver al listado',
                                   onPressed: () {
+                                    SystemChrome.setPreferredOrientations([
+                                      DeviceOrientation.landscapeLeft,
+                                      DeviceOrientation.landscapeRight,
+                                    ]);
                                     Navigator.pushNamed(context, 'listusers');
                                   },
                                   buttonColor: Colors.blue,

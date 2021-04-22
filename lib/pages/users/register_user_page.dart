@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:userspost/blocs/register_user_bloc.dart';
 import 'package:userspost/models/user/user_model.dart';
@@ -118,6 +119,12 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                             ),
                                             labelButton: 'Atras',
                                             onPressed: () {
+                                              SystemChrome
+                                                  .setPreferredOrientations([
+                                                DeviceOrientation.landscapeLeft,
+                                                DeviceOrientation
+                                                    .landscapeRight,
+                                              ]);
                                               Navigator.pushNamed(
                                                   context, 'listusers');
                                             },
@@ -283,6 +290,11 @@ class _RegisterUserPage extends State<RegisterUserPage> {
                                           iconButton: Icon(Icons.arrow_back),
                                           labelButton: 'Atras',
                                           onPressed: () {
+                                            SystemChrome
+                                                .setPreferredOrientations([
+                                              DeviceOrientation.landscapeLeft,
+                                              DeviceOrientation.landscapeRight,
+                                            ]);
                                             Navigator.pushNamed(
                                                 context, 'listusers');
                                           },

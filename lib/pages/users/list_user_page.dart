@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:userspost/blocs/user_list_bloc.dart';
 import 'package:userspost/models/user/user_model.dart';
 import 'package:userspost/pages/posts/list_post_page.dart';
@@ -63,6 +64,10 @@ class _ListUsersPageState extends State<ListUsersPage> {
                 ? null
                 : CupertinoButton(
                     onPressed: () {
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.portraitDown,
+                        DeviceOrientation.portraitUp,
+                      ]);
                       Navigator.pushNamed(context, 'registeruser');
                     },
                     color: Colors.blue,
@@ -214,10 +219,13 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                                           ),
                                                           labelButton: '',
                                                           onPressed: () {
-                                                            //var resBody =
-                                                            //    json.encode(
-                                                            //        users.id);
-
+                                                            SystemChrome
+                                                                .setPreferredOrientations([
+                                                              DeviceOrientation
+                                                                  .portraitDown,
+                                                              DeviceOrientation
+                                                                  .portraitUp,
+                                                            ]);
                                                             Navigator.pushNamed(
                                                               context,
                                                               'manageuser',
@@ -241,12 +249,13 @@ class _ListUsersPageState extends State<ListUsersPage> {
                                                           ),
                                                           labelButton: '',
                                                           onPressed: () {
-                                                            // Navigator.pushNamed(
-                                                            //   context,
-                                                            //   'listposts',
-                                                            //   arguments: users,
-                                                            // );
-
+                                                            SystemChrome
+                                                                .setPreferredOrientations([
+                                                              DeviceOrientation
+                                                                  .landscapeLeft,
+                                                              DeviceOrientation
+                                                                  .landscapeRight,
+                                                            ]);
                                                             Navigator.of(
                                                                     context)
                                                                 .push(

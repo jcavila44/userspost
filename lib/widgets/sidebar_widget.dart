@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'buttons_drawer_widget.dart';
 
 class SideBarWidget extends StatelessWidget {
@@ -21,6 +22,10 @@ class SideBarWidget extends StatelessWidget {
                 ),
                 labelButton: 'Home',
                 onPressed: () {
+                  SystemChrome.setPreferredOrientations([
+                    DeviceOrientation.portraitDown,
+                    DeviceOrientation.portraitUp,
+                  ]);
                   Navigator.pushNamed(context, 'home');
                 },
                 buttonColor: null,
@@ -34,6 +39,10 @@ class SideBarWidget extends StatelessWidget {
                 ),
                 labelButton: 'Users',
                 onPressed: () {
+                  SystemChrome.setPreferredOrientations([
+                    DeviceOrientation.landscapeLeft,
+                    DeviceOrientation.landscapeRight,
+                  ]);
                   Navigator.pushNamed(context, 'listusers');
                 },
                 buttonColor: null,

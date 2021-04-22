@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:userspost/blocs/comments_post_bloc.dart';
 import 'package:userspost/models/comments/comments_model.dart';
 import 'package:userspost/models/post/post_model.dart';
+import 'package:userspost/models/user/user_model.dart';
+import 'package:userspost/pages/posts/list_post_page.dart';
+import 'package:userspost/widgets/buttons_drawer_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
 class CommentsPostsPage extends StatefulWidget {
   final Post arguments;
+  final User argumentsUser;
 
-  CommentsPostsPage({Key key, this.arguments}) : super(key: key);
+  CommentsPostsPage({Key key, this.arguments, this.argumentsUser})
+      : super(key: key);
   static final routeName = 'commentspost';
 
   @override
@@ -65,12 +70,12 @@ class _CommentsPostsPageState extends State<CommentsPostsPage> {
                 ? null
                 : CupertinoButton(
                     onPressed: () {
-                      // Navigator.pushNamed(context, 'registerpost');
-                      // Navigator.pushNamed(
-                      //   context,
-                      //   'registerpost',
-                      //   arguments: widget.arguments,
-                      // );
+                      Navigator.of(context).push(
+                        CupertinoPageRoute(
+                          builder: (context) =>
+                              ListPostsPage(arguments: widget.argumentsUser),
+                        ),
+                      );
                     },
                     color: Colors.grey,
                     child: Text('Volver al listado'),
@@ -184,7 +189,37 @@ class _CommentsPostsPageState extends State<CommentsPostsPage> {
                                                       Text(posts.email),
                                                     ),
                                                     DataCell(
-                                                      Text(posts.body),
+                                                      // Text(posts.body),
+
+                                                      Container(
+                                                        padding:
+                                                            EdgeInsets.all(3),
+                                                        child: ButtonDrawer(
+                                                          iconButton: Icon(
+                                                            Icons.search,
+                                                            color: Colors.white,
+                                                          ),
+                                                          labelButton: 'Ver',
+                                                          onPressed: () {
+                                                            showDialog(
+                                                                builder: (context) => AlertDialog(
+                                                                    content: Text(
+                                                                        posts
+                                                                            .body,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                22),
+                                                                        textAlign:
+                                                                            TextAlign
+                                                                                .justify)),
+                                                                context:
+                                                                    context);
+                                                          },
+                                                          buttonColor:
+                                                              Colors.blue,
+                                                          labelColor: null,
+                                                        ),
+                                                      ),
                                                     ),
                                                     // DataCell(
                                                     //   Container(

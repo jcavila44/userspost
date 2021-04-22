@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:userspost/blocs/register_post_bloc.dart';
 import 'package:userspost/models/post/post_model.dart';
@@ -115,6 +116,12 @@ class _RegisterPostPage extends State<RegisterPostPage> {
                                               // Navigator.of(context).pop(true);
                                               // Navigator.pushNamed(
                                               //     context, 'listusers');
+                                              SystemChrome
+                                                  .setPreferredOrientations([
+                                                DeviceOrientation.landscapeLeft,
+                                                DeviceOrientation
+                                                    .landscapeRight,
+                                              ]);
                                               Navigator.of(context).push(
                                                 CupertinoPageRoute(
                                                   builder: (context) =>
@@ -232,6 +239,11 @@ class _RegisterPostPage extends State<RegisterPostPage> {
                                           onPressed: () {
                                             // Navigator.pushNamed(
                                             //     context, 'listusers');
+                                            SystemChrome
+                                                .setPreferredOrientations([
+                                              DeviceOrientation.landscapeLeft,
+                                              DeviceOrientation.landscapeRight,
+                                            ]);
                                             Navigator.of(context).push(
                                               CupertinoPageRoute(
                                                 builder: (context) =>

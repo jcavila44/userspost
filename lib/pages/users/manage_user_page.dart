@@ -9,8 +9,6 @@ import 'package:userspost/widgets/input_registerformuser_widget.dart';
 import 'package:userspost/widgets/selectinput_widget.dart';
 import 'package:userspost/widgets/sidebar_widget.dart';
 
-import 'list_user_page.dart';
-
 class GestionUserPage extends StatefulWidget {
   GestionUserPage({Key key}) : super(key: key);
   static final routeName = 'manageuser';
